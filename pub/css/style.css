@@ -1,0 +1,75 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.wrapper {
+    width: 1400px;
+    height: 100vh;
+    background-image: url(/pub/img/map_bg.png);
+}
+header {
+    padding: 25px 40px;
+    background-color: #fff;
+}
+.header_menu {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    font-family: sans-serif;
+    font-size: 16px;
+
+}
+.header_menu > li {
+    display: inline-block;
+}
+.header_menu  a,
+.header_menu  a:visited,
+.header_menu  a:active {
+    color: black;
+    text-decoration: none;
+}
+.header_menu > .active > a {
+    color: #FA4C6F;
+    font-size: 20px;
+    font-weight: bold;
+}
+.profile {
+    text-transform: uppercase;
+    flex-basis: 60%;
+    text-align: right;
+    padding-right: 15px;
+}
+.newTaskButton {
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #4C71FE;
+    font-size: 18px;
+    text-align: center;
+    width: 330px;
+    height: 50px;
+    padding-top: 10px;
+    margin: 10px 40px;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+.createTaskBlock {
+    width: 505px;
+    height: 600px;
+    background-color: #fff;
+    /* height: 100vh; */
+}
+.newTask__text {
+    height: 230px;
+    background-color: #D3D3D3;
+    padding: 20px 40px;
+}
+.newTask__caption {
+    font-size: 14px;
+    color: #909090;
+}

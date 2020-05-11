@@ -1,0 +1,19 @@
+{
+  "name": "final_frontendprohillel",
+  "version": "1.0.0",
+  "description": "Final task \"FrontEndProHillel\" JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Styllerr/Final_FrontEndProHillel.git"
+  },
+  "author": "EvgeniyChukavov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Styllerr/Final_FrontEndProHillel/issues"
+  },
+  "homepage": "https://github.com/Styllerr/Final_FrontEndProHillel#readme"
+}
