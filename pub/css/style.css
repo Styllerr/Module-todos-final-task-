@@ -96,7 +96,9 @@ main {
 .wrapper_plumberTask,
 .wrapper_electicianTask,
 .wrapper_description,
-.wrapper_gardenerTask {
+.wrapper_gardenerTask,
+.wrapper_housekeeperTask,
+.wrapper_cookingTask {
     padding: 15px 30px;
     border-bottom: 1px solid #f1f1f1;
 }
@@ -138,7 +140,9 @@ main {
 .wrapper_serviceType input,
 .wrapper_plumberTask input,
 .wrapper_electicianTask input,
-.wrapper_gardenerTask input {
+.wrapper_gardenerTask input,
+.wrapper_housekeeperTask input,
+.wrapper_cookingTask input {
     display: none;
 }
 .task {
