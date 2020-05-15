@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobUp</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./javascript/script.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <ul class="header_menu">
+                <li class="active"><a href="#">JobUp</a></li>
+                <li><a href="#">DASHBOARD</a></li>
+                <li><a href="#">HISTORY</a></li>
+                <li class="profile"><a href="#">Profile</a></li>
+            </ul>
+        </header>
+        <main>
+            <div class="taskBlock">
+                <div class="newTaskButton">+ NEW TASK</div>
+            </div>
+
+
+            <form action="../addTask" method="post" class="newTaskForm">
+
+
+                <div class="wrapper__newTaskText">
+                    <div class="caption">NEW TASK</div>
+                    <div class="newTask__text">Lorem ipsum, dolor sit amet lit. Harum, quisquam
+                        nus velit eius ipsum, architecto earum soluta.
+                    </div>
+                    <p class="newTask__location">
+                        19, Kolskaya str. Dnipro, 49112
+                    </p>
+                    <input type="submit" value="CREATE TASK" class="newTask__button">
+                </div>
+
+
+                <div class="wrapper_location">
+                    <div class="caption">LOCATION</div>
+                    <input type="text" name="location" class="field" placeholder="19, Kolskaya str. Dnipro, 49112">
+                </div>
+
+
+                <div class="wrapper_serviceType">
+                    <div class="caption">SERVICE TYPE</div>
+                    <div class="serviceType">
+                        <input type="radio" name="serviceType" value="electician" id="electician">
+                        <label class="elec" for="electician"></label>
+                        <p>Electician</p>
+                    </div>
+                    <div class="serviceType">
+                        <input type="radio" name="serviceType" value="plumber" id="plumber">
+                        <label class="plum" for="plumber"></label>
+                        <p>Plumber</p>
+                    </div>
+                    <div class="serviceType">
+                        <input type="radio" name="serviceType" value="gardener" id="gardener">
+                        <label class="gard" for="gardener"></label>
+                        <p>Gardener</p>
+                    </div>
+                    <div class="serviceType">
+                        <input type="radio" name="serviceType" value="housekeeper" id="housekeeper">
+                        <label class="hous" for="housekeeper"></label>
+                        <p>Housekeeper</p>
+                    </div>
+                    <div class="serviceType">
+                        <input type="radio" name="serviceType" value="cook" id="cook">
+                        <label class="cook" for="cook"></label>
+                        <p>Cook</p>
+                    </div>
+                </div>
+
+
+                <div class="wrapper_electicianTask">
+                    <div class="caption">ELECTICIAN TASKS</div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="lamp replacement" id="lamp">
+                        <label class="taskName" for="lamp">Lamp replacement</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="outlet Repair" id="outlet">
+                        <label class="taskName" for="outlet">Outlet Repair</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="wiring repair" id="wiring">
+                        <label class="taskName" for="wiring">Wiring repair</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="fuse replacement" id="fuse">
+                        <label class="taskName" for="fuse">Fuse replacement</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="troubleshooting" id="trouble">
+                        <label class="taskName" for="trouble">Troubleshooting</label>
+                    </div>
+                </div>
+
+
+                <div class="wrapper_plumberTask">
+                    <div class="caption">PLUMBER TASKS</div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="Unblock a toilet" id="toilet">
+                        <label class="taskName" for="toilet">Unblock a toilet</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="Unblock a sink" id="sink">
+                        <label class="taskName" for="sink">Unblock a sink</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="Fix a water leak" id="leak">
+                        <label class="taskName" for="leak">Fix a water leak</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="Install a sink" id="installSink">
+                        <label class="taskName" for="installSink">Install a sink</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="Install a shower" id="shower">
+                        <label class="taskName" for="shower">Install a shower</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="Install a toilet" id="installToilet">
+                        <label class="taskName" for="installToilet">Install a toilet</label>
+                    </div>
+                </div>
+
+
+
+                <div class="wrapper_gardenerTask">
+                    <div class="caption">GARDENER TASKS</div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="watering plants" id="watering">
+                        <label class="taskName" for="watering">Watering plants</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="pruning trees" id="trees">
+                        <label class="taskName" for="trees">Pruning trees</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="lawn mowing" id="mowing">
+                        <label class="taskName" for="mowing">Lawn mowing</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="flowerbed creation" id="flower">
+                        <label class="taskName" for="flower">Flowerbed</label>
+                    </div>
+                </div>
+
+
+                <div class="wrapper_housekeeperTask">
+                    <div class="caption">HOUSEKEEPER TASKS</div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="watering plants" id="cleaning">
+                        <label class="taskName" for="cleaning">Cleaning</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="pruning trees" id="washing">
+                        <label class="taskName" for="washing">Washing</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="flowerbed creation" id="ironing">
+                        <label class="taskName" for="ironing">Ironing</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="lawn mowing" id="shopping">
+                        <label class="taskName" for="shopping">Grocery shopping</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="flowerbed creation" id="babysitting">
+                        <label class="taskName" for="babysitting">Babysitting</label>
+                    </div>
+                </div>
+
+
+                <div class="wrapper_cookingTask">
+                    <div class="caption">COOKING TASKS</div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="watering plants" id="lunch">
+                        <label class="taskName" for="lunch">Cooking lunch</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="pruning trees" id="dinner">
+                        <label class="taskName" for="dinner">Cooking dinner</label>
+                    </div>
+                    <div class="task">
+                        <input type="radio" name="taskName" value="flowerbed creation" id="banquet">
+                        <label class="taskName" for="banquet">Banquet</label>
+                    </div>
+                </div>
+                <div class="wrapper_description">
+                    <div class="caption">TASK DESCRIPTION</div>
+                    <input type="text" name="description" class="field" placeholder="write something...">
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+
+</html>
