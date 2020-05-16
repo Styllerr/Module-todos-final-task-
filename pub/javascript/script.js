@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    class View {
+    class ViewCreate {
         constructor() {
             this.wrapper = document.querySelector('div.wrapper');
             this.header = document.createElement('header');
@@ -20,11 +20,16 @@ document.addEventListener('DOMContentLoaded', function () {
             this.form.className = 'newTaskForm';
             this.wrapperNewTaskText = document.createElement('div');
             this.wrapperNewTaskText.className = 'wrapper__newTaskText';
-            this.wrapperNewTaskText.innerHTML = '<div class="caption">NEW TASK</div>';
-            this.newTaskText = document.createElement('div');
-            this.newTaskText.className = 'newTask__text';
-            this.newTaskText.innerText = `Lorem ipsum, dolor sit amet lit. Harum, quisquam
-            nus velit eius ipsum, architecto earum soluta.`
+            this.wrapperNewTaskText.innerHTML = `<div class="caption">NEW TASK</div>
+            <span>I need <span class="serviceTypeText"></span> <span class="taskText">
+            </span>, <span class="descriptionText"></span>.</span><p class="locationText"></p>`;
+
+            this.descriptionText = document.createElement('span');
+            this.descriptionText.className = 'descriptionText';
+
+            this.locationText = document.createElement('span');
+            this.locationText.className = 'locationText';
+
             this.newTaskLocation = document.createElement('p');
             this.newTaskLocation.className = 'newTask__location';
             this.newTaskLocation.innerText = '19, Kolskaya str. Dnipro, 49112';
@@ -93,6 +98,8 @@ document.addEventListener('DOMContentLoaded', function () {
             this.cook.name = 'serviceType';
             this.cook.value = 'cook';
             this.cook.id = 'cook';
+
+            this.wrapperForTask = document.createElement('div')
 
             this.wrapperElecticianTask = document.createElement('div');
             this.wrapperElecticianTask.className = 'wrapper_electicianTask';
@@ -287,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.babysitting.name = 'taskName';
             this.babysitting.value = 'babysitting';
             this.babysitting.id = 'babysitting';
-            
+
             this.wrapperCookingTask = document.createElement('div');
             this.wrapperCookingTask.className = 'wrapper_cookingTask';
             this.wrapperCookingTask.innerHTML = `<div class="caption">COOKING TASKS</div>
@@ -328,53 +335,126 @@ document.addEventListener('DOMContentLoaded', function () {
             this.description.name = 'description';
             this.description.placeholder = 'write something...';
             this.description.className = 'field';
+
         }
         renderPage() {
             this.wrapper.append(this.header, this.main);
             this.main.append(this.taskBlock, this.form);
             this.taskBlock.append(this.newTaskButton);
             this.form.append(this.wrapperNewTaskText, this.wrapperLocation, this.wrapperServiceType);
-            this.form.append(this.wrapperElecticianTask, this.wrapperPlumberTask, this.wrapperGardenerTask)
-            this.form.append(this.wrapperHousekeeperTask, this.wrapperCookingTask, this.wrapperDescription);
-            this.wrapperNewTaskText.append(this.newTaskText, this.newTaskLocation, this.addTaskButton);
+            this.form.append(this.wrapperForTask, this.wrapperDescription);
+            this.wrapperNewTaskText.append(this.addTaskButton);
             this.wrapperLocation.append(this.location);
             document.querySelector('label.elec').parentNode.prepend(this.electician);
             document.querySelector('label.plum').parentNode.prepend(this.plumber);
             document.querySelector('label.gard').parentNode.prepend(this.gardener);
             document.querySelector('label.hous').parentNode.prepend(this.housekeeper);
             document.querySelector('label.cook').parentNode.prepend(this.cook);
-
-            document.querySelector('label.lamp').parentNode.prepend(this.lamp);
-            document.querySelector('label.outlet').parentNode.prepend(this.outlet);
-            document.querySelector('label.wiring').parentNode.prepend(this.wiring);
-            document.querySelector('label.fuse').parentNode.prepend(this.fuse);
-            document.querySelector('label.trouble').parentNode.prepend(this.trouble);
-
-            document.querySelector('label.toilet').parentNode.prepend(this.toilet);
-            document.querySelector('label.sink').parentNode.prepend(this.sink);
-            document.querySelector('label.leak').parentNode.prepend(this.leak);
-            document.querySelector('label.installSink').parentNode.prepend(this.installSink);
-            document.querySelector('label.shower').parentNode.prepend(this.shower);
-            document.querySelector('label.installToilet').parentNode.prepend(this.installToilet);
-
-            document.querySelector('label.watering').parentNode.prepend(this.watering);
-            document.querySelector('label.trees').parentNode.prepend(this.trees);
-            document.querySelector('label.mowing').parentNode.prepend(this.mowing);
-            document.querySelector('label.flower').parentNode.prepend(this.flower);
-
-            document.querySelector('label.cleaning').parentNode.prepend(this.cleaning);
-            document.querySelector('label.washing').parentNode.prepend(this.washing);
-            document.querySelector('label.ironing').parentNode.prepend(this.ironing);
-            document.querySelector('label.shopping').parentNode.prepend(this.shopping);
-            document.querySelector('label.babysitting').parentNode.prepend(this.babysitting);
-
-            document.querySelector('label.lunch').parentNode.prepend(this.lunch);
-            document.querySelector('label.dinner').parentNode.prepend(this.dinner);
-            document.querySelector('label.banquet').parentNode.prepend(this.banquet);
-
             this.wrapperDescription.append(this.description);
+
+            this.serviceTypeText = document.querySelector('span.serviceTypeText');
+            this.taskText  = document.querySelector('span.taskText');
+        }
+        bindSelectService(metod) {
+            this.wrapperServiceType.addEventListener('click', () => {
+                metod();
+            })
+        }
+        bindSelectTask(metod) {
+            this.wrapperForTask.addEventListener('click', () => {
+                metod();
+            })
+        }
+
+        selectService() {
+            let service = event.target.className;
+            switch (service) {
+                case 'elec':
+                    this.wrapperForTask.innerHTML = '';
+                    this.wrapperForTask.append(this.wrapperElecticianTask);
+                    document.querySelector('label.lamp').parentNode.prepend(this.lamp);
+                    document.querySelector('label.outlet').parentNode.prepend(this.outlet);
+                    document.querySelector('label.wiring').parentNode.prepend(this.wiring);
+                    document.querySelector('label.fuse').parentNode.prepend(this.fuse);
+                    document.querySelector('label.trouble').parentNode.prepend(this.trouble);
+                    this.serviceTypeText.innerText = 'a electician';
+                    this.taskText.innerText = '';
+                    break;
+                case 'plum':
+                    this.wrapperForTask.innerHTML = '';
+                    this.wrapperForTask.append(this.wrapperPlumberTask);
+                    document.querySelector('label.toilet').parentNode.prepend(this.toilet);
+                    document.querySelector('label.sink').parentNode.prepend(this.sink);
+                    document.querySelector('label.leak').parentNode.prepend(this.leak);
+                    document.querySelector('label.installSink').parentNode.prepend(this.installSink);
+                    document.querySelector('label.shower').parentNode.prepend(this.shower);
+                    document.querySelector('label.installToilet').parentNode.prepend(this.installToilet);
+                    this.serviceTypeText.innerText = 'a plumber';
+                    this.taskText.innerText = '';
+                    break;
+                case 'gard':
+                    this.wrapperForTask.innerHTML = '';
+                    this.wrapperForTask.append(this.wrapperGardenerTask);
+                    document.querySelector('label.watering').parentNode.prepend(this.watering);
+                    document.querySelector('label.trees').parentNode.prepend(this.trees);
+                    document.querySelector('label.mowing').parentNode.prepend(this.mowing);
+                    document.querySelector('label.flower').parentNode.prepend(this.flower);
+                    this.serviceTypeText.innerText = 'a gardener';
+                    this.taskText.innerText = '';
+                    break;
+                case 'hous':
+                    this.wrapperForTask.innerHTML = '';
+                    this.wrapperForTask.append(this.wrapperHousekeeperTask);
+                    document.querySelector('label.cleaning').parentNode.prepend(this.cleaning);
+                    document.querySelector('label.washing').parentNode.prepend(this.washing);
+                    document.querySelector('label.ironing').parentNode.prepend(this.ironing);
+                    document.querySelector('label.shopping').parentNode.prepend(this.shopping);
+                    document.querySelector('label.babysitting').parentNode.prepend(this.babysitting);
+                    this.serviceTypeText.innerText = 'a houskeeper';
+                    this.taskText.innerText = '';
+                    break;
+                case 'cook':
+                    this.wrapperForTask.innerHTML = '';
+                    this.wrapperForTask.append(this.wrapperCookingTask);
+                    document.querySelector('label.lunch').parentNode.prepend(this.lunch);
+                    document.querySelector('label.dinner').parentNode.prepend(this.dinner);
+                    document.querySelector('label.banquet').parentNode.prepend(this.banquet);
+                    this.serviceTypeText.innerText = 'a cook';
+                    this.taskText.innerText = '';
+                    break;
+                default:
+                    break;
+            }
+        }
+        selectTask() {
+            if (event.target.type) {
+                this.taskText.innerText = `to ${event.target.value}`;
+            }
+        }
+        makeNewTaskText() {
+
         }
     }
-    const view = new View();
-    view.renderPage();
+
+    class Controller {
+        constructor() {
+            this.view = view;
+            this.view.bindSelectService(this.handlSelectService);
+            this.view.bindSelectTask(this.handlSelectTask);
+        }
+        handlSelectService = () => {
+            this.view.selectService();
+        }
+        handlSelectTask = () => {
+            this.view.selectTask();
+        }
+        appInit() {
+            this.view.renderPage();
+        }
+
+    }
+
+    const view = new ViewCreate();
+    const app = new Controller(view);
+    app.appInit();
 })
