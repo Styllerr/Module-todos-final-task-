@@ -1,16 +1,28 @@
 {
   "name": "final_frontendprohillel",
   "version": "1.0.0",
-  "description": "Final task \"FrontEndProHillel\" JS",
+  "description": "Final task in Hillel FrontEndPro",
   "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.7",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Styllerr/Final_FrontEndProHillel.git"
   },
-  "author": "EvgeniyChukavov",
+  "author": "Evgeniy Chukavov",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Styllerr/Final_FrontEndProHillel/issues"

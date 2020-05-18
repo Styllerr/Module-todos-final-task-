@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.form = document.createElement('form');
             this.form.action = '../addTask';
             this.form.method = 'post';
+            this.form.name = 'todo';
             this.form.className = 'newTaskForm';
             this.wrapperNewTaskText = document.createElement('div');
             this.wrapperNewTaskText.className = 'wrapper__newTaskText';
@@ -24,17 +25,11 @@ document.addEventListener('DOMContentLoaded', function () {
             <span>I need <span class="serviceTypeText"></span> <span class="taskText">
             </span>, <span class="descriptionText"></span>.</span><p class="locationText"></p>`;
 
-            this.descriptionText = document.createElement('span');
-            this.descriptionText.className = 'descriptionText';
-
-            this.locationText = document.createElement('span');
-            this.locationText.className = 'locationText';
-
             this.newTaskLocation = document.createElement('p');
             this.newTaskLocation.className = 'newTask__location';
             this.newTaskLocation.innerText = '19, Kolskaya str. Dnipro, 49112';
             this.addTaskButton = document.createElement('input');
-            this.addTaskButton.type = 'submit';
+            this.addTaskButton.type = 'button';
             this.addTaskButton.className = 'newTask__button';
             this.addTaskButton.value = 'CREATE TASK';
             this.wrapperLocation = document.createElement('div');
@@ -43,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.location = document.createElement('input');
             this.location.type = 'text';
             this.location.name = 'location';
-            this.location.className = 'field';
+            this.location.className = 'field location';
             this.location.placeholder = '19, Kolskaya str. Dnipro, 49112';
             this.wrapperServiceType = document.createElement('div');
             this.wrapperServiceType.className = 'wrapper_serviceType';
@@ -334,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.description.type = 'text';
             this.description.name = 'description';
             this.description.placeholder = 'write something...';
-            this.description.className = 'field';
+            this.description.className = 'field description';
 
         }
         renderPage() {
@@ -353,7 +348,18 @@ document.addEventListener('DOMContentLoaded', function () {
             this.wrapperDescription.append(this.description);
 
             this.serviceTypeText = document.querySelector('span.serviceTypeText');
-            this.taskText  = document.querySelector('span.taskText');
+            this.taskText = document.querySelector('span.taskText');
+            this.locationText = document.querySelector('p.locationText');
+            this.descriptionText = document.querySelector('span.descriptionText');
+        }
+        get taskObj() {
+
+            return {
+                "serviceType": document.querySelector('div.serviceType>input:checked').value,
+                "task": document.querySelector('div.task>input:checked').value,
+                "location": document.querySelector('input.location').value,
+                "description": document.querySelector('input.description').value,
+            };
         }
         bindSelectService(metod) {
             this.wrapperServiceType.addEventListener('click', () => {
@@ -365,6 +371,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 metod();
             })
         }
+        bindSelectLocation(metod) {
+            this.location.addEventListener('change', () => {
+                metod(this.location.value)
+            })
+        }
+        bindAddDescription(metod) {
+            this.description.addEventListener('change', () => {
+                metod(this.description.value)
+            })
+        }
+        bindAddTask(metod) {
+            this.addTaskButton.addEventListener('click', () => {
+                metod(this.taskObj);
+            })
+        }
 
         selectService() {
             let service = event.target.className;
@@ -373,10 +394,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.wrapperForTask.innerHTML = '';
                     this.wrapperForTask.append(this.wrapperElecticianTask);
                     document.querySelector('label.lamp').parentNode.prepend(this.lamp);
+                    this.lamp.checked = false;
                     document.querySelector('label.outlet').parentNode.prepend(this.outlet);
+                    this.outlet.checked = false;
                     document.querySelector('label.wiring').parentNode.prepend(this.wiring);
+                    this.wiring.checked = false;
                     document.querySelector('label.fuse').parentNode.prepend(this.fuse);
+                    this.fuse.checked = false;
                     document.querySelector('label.trouble').parentNode.prepend(this.trouble);
+                    this.trouble.checked = false;
                     this.serviceTypeText.innerText = 'a electician';
                     this.taskText.innerText = '';
                     break;
@@ -384,11 +410,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.wrapperForTask.innerHTML = '';
                     this.wrapperForTask.append(this.wrapperPlumberTask);
                     document.querySelector('label.toilet').parentNode.prepend(this.toilet);
+                    this.toilet.checked = false;
                     document.querySelector('label.sink').parentNode.prepend(this.sink);
+                    this.sink.checked = false;
                     document.querySelector('label.leak').parentNode.prepend(this.leak);
+                    this.leak.checked = false;
                     document.querySelector('label.installSink').parentNode.prepend(this.installSink);
+                    this.installSink.checked = false;
                     document.querySelector('label.shower').parentNode.prepend(this.shower);
+                    this.shower.checked = false;
                     document.querySelector('label.installToilet').parentNode.prepend(this.installToilet);
+                    this.installToilet.checked = false;
                     this.serviceTypeText.innerText = 'a plumber';
                     this.taskText.innerText = '';
                     break;
@@ -396,9 +428,13 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.wrapperForTask.innerHTML = '';
                     this.wrapperForTask.append(this.wrapperGardenerTask);
                     document.querySelector('label.watering').parentNode.prepend(this.watering);
+                    this.watering.checked = false;
                     document.querySelector('label.trees').parentNode.prepend(this.trees);
+                    this.trees.checked = false;
                     document.querySelector('label.mowing').parentNode.prepend(this.mowing);
+                    this.mowing.checked = false;
                     document.querySelector('label.flower').parentNode.prepend(this.flower);
+                    this.flower.checked = false;
                     this.serviceTypeText.innerText = 'a gardener';
                     this.taskText.innerText = '';
                     break;
@@ -406,10 +442,15 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.wrapperForTask.innerHTML = '';
                     this.wrapperForTask.append(this.wrapperHousekeeperTask);
                     document.querySelector('label.cleaning').parentNode.prepend(this.cleaning);
+                    this.cleaning.checked = false;
                     document.querySelector('label.washing').parentNode.prepend(this.washing);
+                    this.washing.checked = false;
                     document.querySelector('label.ironing').parentNode.prepend(this.ironing);
+                    this.ironing.checked = false;
                     document.querySelector('label.shopping').parentNode.prepend(this.shopping);
+                    this.shopping.checked = false;
                     document.querySelector('label.babysitting').parentNode.prepend(this.babysitting);
+                    this.babysitting.checked = false;
                     this.serviceTypeText.innerText = 'a houskeeper';
                     this.taskText.innerText = '';
                     break;
@@ -417,8 +458,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     this.wrapperForTask.innerHTML = '';
                     this.wrapperForTask.append(this.wrapperCookingTask);
                     document.querySelector('label.lunch').parentNode.prepend(this.lunch);
+                    this.lunch.checked = false;
                     document.querySelector('label.dinner').parentNode.prepend(this.dinner);
+                    this.dinner.checked = false;
                     document.querySelector('label.banquet').parentNode.prepend(this.banquet);
+                    this.banquet.checked = false;
                     this.serviceTypeText.innerText = 'a cook';
                     this.taskText.innerText = '';
                     break;
@@ -431,16 +475,53 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.taskText.innerText = `to ${event.target.value}`;
             }
         }
-        makeNewTaskText() {
+        selectLocation(loc) {
+            this.locationText.innerText = `My address is ${loc}`;
+        }
+        addDescription(desc) {
+            this.descriptionText.innerText = `${desc}`
+        }
+    }
 
+    class ModelAddTask {
+        constructor() {
+            this.xhttp = new XMLHttpRequest();
+
+        }
+        addTasktoDB(data) {
+            console.log(data);
+            let json = JSON.stringify(data);
+            this.xhttp.open("POST", "http://127.0.0.1:3000/addTask", true);
+            this.xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+            this.xhttp.send(json);
+            this.xhttp.onload = () => {
+                if(this.xhttp.status === 200) {
+                    this.updateTaskList();
+                } 
+            }
+        }
+        updateTaskList() {
+            this.xhttp.open("GET", "http://127.0.0.1:3000/tasks", true);
+            this.xhttp.send();
+            this.xhttp.onload = () => {
+                if(this.xhttp.status >=400) {
+                    console.error("can't load data");
+                } else {
+                    console.log(this.xhttp.response);
+                }
+            }
         }
     }
 
     class Controller {
         constructor() {
-            this.view = view;
+            this.view = view1;
+            this.model = model1;
             this.view.bindSelectService(this.handlSelectService);
             this.view.bindSelectTask(this.handlSelectTask);
+            this.view.bindAddTask(this.handlAddTask);
+            this.view.bindSelectLocation(this.handlSelectLocation);
+            this.view.bindAddDescription(this.handlAddDescription);
         }
         handlSelectService = () => {
             this.view.selectService();
@@ -448,13 +529,23 @@ document.addEventListener('DOMContentLoaded', function () {
         handlSelectTask = () => {
             this.view.selectTask();
         }
+        handlAddTask = (data) => {
+            this.model.addTasktoDB(data);
+        }
+        handlSelectLocation = (loc) => {
+            this.view.selectLocation(loc);
+        }
+        handlAddDescription = (desc) => {
+            this.view.addDescription(desc);
+        }
         appInit() {
             this.view.renderPage();
         }
 
     }
 
-    const view = new ViewCreate();
-    const app = new Controller(view);
+    const view1 = new ViewCreate();
+    const model1 = new ModelAddTask()
+    const app = new Controller(view1, model1);
     app.appInit();
 })

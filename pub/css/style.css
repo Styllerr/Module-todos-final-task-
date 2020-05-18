@@ -6,7 +6,7 @@
 .wrapper {
     width: 1400px;
     height: 100vh;
-    background-image: url(/pub/img/map_bg.png);
+    background-image: url(../img/map_bg.png);
 }
 header {
     padding: 25px 40px;
