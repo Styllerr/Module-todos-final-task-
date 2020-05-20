@@ -497,24 +497,41 @@ document.addEventListener('DOMContentLoaded', function () {
             this.xhttp.open("POST", "http://127.0.0.1:3000/addTask", true);
             this.xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
             this.xhttp.send(json);
-            /*             this.xhttp.onload = () => {
-                            if(this.xhttp.status === 200) {
-                                this.tasksObj = this.updateTaskList;
-                                console.log( this.tasksObj);
-                            } 
-                        } */
         }
         get updatedTaskList() {
-            this.xhttp.open("GET", "http://127.0.0.1:3000/tasks", true);
-            this.xhttp.send();
-            this.xhttp.onload = () => {
-                if (this.xhttp.status === 200) {
-                    console.log('Model get' + this.xhttp.response);
-                    return JSON.parse(this.xhttp.response);
-                } else {
-                    console.error("can't load data");
-                }
-            }
+            /*             this.xhttp.open("GET", "http://127.0.0.1:3000/tasks", true);
+                        this.xhttp.send();
+                        this.xhttp.onload = () => {
+                            if (this.xhttp.status === 200) {
+                                console.log('Model get' + this.xhttp.response);
+                                return JSON.parse(this.xhttp.response);
+                            } else {
+                                console.error("can't load data");
+                            }
+                        } */
+
+            let request = () => {
+                return new Promise((resolve, reject) => {
+                    this.xhttp.open("GET", "http://127.0.0.1:3000/tasks", true);
+
+                    this.xhttp.onload = () => {
+                        if (this.xhttp.status >= 200 && this.xhttp.status < 300) {
+                            resolve(this.xhttp.response);
+                        } else {
+                            reject(this.xhttp.statusText);
+                        }
+                    };
+                    this.xhttp.onerror = () => reject(this.xhttp.statusText);
+                    this.xhttp.send();
+                });
+            };
+            request()
+                .then(data => {
+                    return JSON.parse(data);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         }
         get taskData() {
             let now = new Date(),
