@@ -26,7 +26,9 @@ app.get('/tasks', (req, res) => {
             console.error(err);
             return sendStatus(500);
         }
+        
         res.send(docs);
+        // console.log(docs);
     })
 })
 app.post('/addTask', (req, res) => {

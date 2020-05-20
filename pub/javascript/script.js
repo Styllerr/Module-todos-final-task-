@@ -355,12 +355,14 @@ document.addEventListener('DOMContentLoaded', function () {
         get taskObj() {
 
             return {
+                "data": "",
                 "serviceType": document.querySelector('div.serviceType>input:checked').value,
                 "task": document.querySelector('div.task>input:checked').value,
                 "location": document.querySelector('input.location').value,
                 "description": document.querySelector('input.description').value,
             };
         }
+
         bindSelectService(metod) {
             this.wrapperServiceType.addEventListener('click', () => {
                 metod();
@@ -384,9 +386,9 @@ document.addEventListener('DOMContentLoaded', function () {
         bindAddTask(metod) {
             this.addTaskButton.addEventListener('click', () => {
                 metod(this.taskObj);
+
             })
         }
-
         selectService() {
             let service = event.target.className;
             switch (service) {
@@ -486,30 +488,107 @@ document.addEventListener('DOMContentLoaded', function () {
     class ModelAddTask {
         constructor() {
             this.xhttp = new XMLHttpRequest();
-
         }
         addTasktoDB(data) {
-            console.log(data);
+            let newTask = data;
+            newTask.data = this.taskData;
+            console.log(newTask);
             let json = JSON.stringify(data);
             this.xhttp.open("POST", "http://127.0.0.1:3000/addTask", true);
             this.xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
             this.xhttp.send(json);
-            this.xhttp.onload = () => {
-                if(this.xhttp.status === 200) {
-                    this.updateTaskList();
-                } 
-            }
+            /*             this.xhttp.onload = () => {
+                            if(this.xhttp.status === 200) {
+                                this.tasksObj = this.updateTaskList;
+                                console.log( this.tasksObj);
+                            } 
+                        } */
         }
-        updateTaskList() {
+        get updatedTaskList() {
             this.xhttp.open("GET", "http://127.0.0.1:3000/tasks", true);
             this.xhttp.send();
             this.xhttp.onload = () => {
-                if(this.xhttp.status >=400) {
-                    console.error("can't load data");
+                if (this.xhttp.status === 200) {
+                    console.log('Model get' + this.xhttp.response);
+                    return JSON.parse(this.xhttp.response);
                 } else {
-                    console.log(this.xhttp.response);
+                    console.error("can't load data");
                 }
             }
+        }
+        get taskData() {
+            let now = new Date(),
+                weekText,
+                monthText;
+            let week = now.getDay();
+            let month = now.getMonth();
+            switch (week) {
+                case 0:
+                    weekText = 'Sunday';
+                    break;
+                case 1:
+                    weekText = 'Monday';
+                    break;
+                case 2:
+                    weekText = 'Tuesday';
+                    break;
+                case 3:
+                    weekText = 'Wednesday';
+                    break;
+                case 4:
+                    weekText = 'Thursday';
+                    break;
+                case 5:
+                    weekText = 'Friday';
+                    break;
+                case 6:
+                    weekText = 'Saturday';
+                    break;
+
+                default:
+                    break;
+            };
+            switch (month) {
+                case 0:
+                    monthText = 'January';
+                    break;
+                case 1:
+                    monthText = 'February';
+                    break;
+                case 2:
+                    monthText = 'March';
+                    break;
+                case 3:
+                    monthText = 'April';
+                    break;
+                case 4:
+                    monthText = 'May';
+                    break;
+                case 5:
+                    monthText = 'June';
+                    break;
+                case 6:
+                    monthText = 'July';
+                    break;
+                case 7:
+                    monthText = 'August';
+                    break;
+                case 8:
+                    monthText = 'September';
+                    break;
+                case 9:
+                    monthText = 'October';
+                    break;
+                case 10:
+                    monthText = 'November';
+                    break;
+                case 11:
+                    monthText = 'December';
+                    break;
+                default:
+                    break;
+            }
+            return `${weekText}, ${monthText} ${now.getDate()}, ${now.getHours()}:${now.getMinutes()}`
         }
     }
 
@@ -531,12 +610,17 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         handlAddTask = (data) => {
             this.model.addTasktoDB(data);
+            this.createTasksList();
         }
         handlSelectLocation = (loc) => {
             this.view.selectLocation(loc);
         }
         handlAddDescription = (desc) => {
             this.view.addDescription(desc);
+        }
+        createTasksList() {
+            this.array = this.model.updatedTaskList;
+            console.log('Controller get' + this.array);
         }
         appInit() {
             this.view.renderPage();
