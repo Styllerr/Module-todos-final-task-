@@ -20,14 +20,14 @@ const client = new MongoClient(url);
 app.get('/', (req, res) => {
     res.sendFile('index.html')
 });
+
 app.get('/tasks', (req, res) => {
     db.collection('tasks').find().toArray((err, docs) => {
         if (err) {
             console.error(err);
             return sendStatus(500);
         }
-        
-        res.send(docs);
+       res.send(docs);
         // console.log(docs);
     })
 })

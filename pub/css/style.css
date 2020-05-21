@@ -45,7 +45,11 @@ main {
 .taskBlock {
     position: absolute;
     top: 5px;
-    left: 0;
+    left: 20px;
+    width: 300px;
+    height: 100vh;
+    overflow: auto;
+
 }
 
 .newTaskButton {
@@ -54,10 +58,17 @@ main {
     color: #4c71fe;
     font-size: 18px;
     text-align: center;
-    width: 330px;
+    /* width: 330px; */
     height: 50px;
     padding-top: 10px;
-    margin: 10px 40px;
+    margin-bottom: 7px;
+}
+.taskCard {
+    background-color: #fff;
+    /* width: 330px; */
+    padding: 15px 10px;
+    margin-bottom: 7px;
+    text-align: left;
 }
 .newTaskForm {
     position: absolute;

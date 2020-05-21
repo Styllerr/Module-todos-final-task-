@@ -352,6 +352,35 @@ document.addEventListener('DOMContentLoaded', function () {
             this.locationText = document.querySelector('p.locationText');
             this.descriptionText = document.querySelector('span.descriptionText');
         }
+        renderTasksList(array) {
+            
+            for(let i=0; i < array.length; i++) {
+                this.wraperTask = document.createElement('div');
+                this.wraperTask.id = array[i]._id;
+                this.wraperTask.className = 'taskCard';
+                this.dataForTaskCard = document.createElement('p');
+                this.dataForTaskCard.innerText = array[i].data;
+                this.textForTeskCard = document.createElement('p');
+                this.textForTeskCard.className = 'taskDeskription';
+                
+                this.serviceForCard = document.createElement('span');
+                this.serviceForCard.id = 'serv';
+                this.serviceForCard.innerText = `I need a ${array[i].serviceType}`;
+
+                this.taskForCard = document.createElement('span');
+                this.taskForCard.id = 'task';
+                this.taskForCard.innerText = ` to ${array[i].task}`;
+                this.editButtonForCard = document.createElement('button');
+                this.editButtonForCard.innerText = 'EDIT';
+                this.editButtonForCard.id = 'edit';
+                this.deleteButtonForCard = document.createElement('button');
+                this.deleteButtonForCard.innerText = 'DELETE';
+                this.deleteButtonForCard.id = 'del';
+                this.textForTeskCard.append(this.serviceForCard, this.taskForCard);
+                this.wraperTask.append(this.dataForTaskCard, this.textForTeskCard, this.editButtonForCard, this.deleteButtonForCard);
+                this.taskBlock.append(this.wraperTask);
+            }
+        }
         get taskObj() {
 
             return {
@@ -488,6 +517,7 @@ document.addEventListener('DOMContentLoaded', function () {
     class ModelAddTask {
         constructor() {
             this.xhttp = new XMLHttpRequest();
+            this.tasksList;
         }
         addTasktoDB(data) {
             let newTask = data;
@@ -498,40 +528,17 @@ document.addEventListener('DOMContentLoaded', function () {
             this.xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
             this.xhttp.send(json);
         }
-        get updatedTaskList() {
-            /*             this.xhttp.open("GET", "http://127.0.0.1:3000/tasks", true);
-                        this.xhttp.send();
-                        this.xhttp.onload = () => {
-                            if (this.xhttp.status === 200) {
-                                console.log('Model get' + this.xhttp.response);
-                                return JSON.parse(this.xhttp.response);
-                            } else {
-                                console.error("can't load data");
-                            }
-                        } */
 
-            let request = () => {
-                return new Promise((resolve, reject) => {
-                    this.xhttp.open("GET", "http://127.0.0.1:3000/tasks", true);
+        async updatedTaskList() {
+            try {
+                const response = await fetch('http://127.0.0.1:3000/tasks')
+                const data = await response.json()
+                console.log(data)
+                return data
+            } catch (err) {
+                console.error('Fetch Error', err);
+            }
 
-                    this.xhttp.onload = () => {
-                        if (this.xhttp.status >= 200 && this.xhttp.status < 300) {
-                            resolve(this.xhttp.response);
-                        } else {
-                            reject(this.xhttp.statusText);
-                        }
-                    };
-                    this.xhttp.onerror = () => reject(this.xhttp.statusText);
-                    this.xhttp.send();
-                });
-            };
-            request()
-                .then(data => {
-                    return JSON.parse(data);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
         }
         get taskData() {
             let now = new Date(),
@@ -636,11 +643,13 @@ document.addEventListener('DOMContentLoaded', function () {
             this.view.addDescription(desc);
         }
         createTasksList() {
-            this.array = this.model.updatedTaskList;
-            console.log('Controller get' + this.array);
+            this.model.updatedTaskList()
+                .then(data => this.view.renderTasksList(data));
+
         }
         appInit() {
             this.view.renderPage();
+            this.createTasksList();
         }
 
     }
