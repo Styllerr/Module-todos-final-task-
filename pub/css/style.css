@@ -58,14 +58,12 @@ main {
     color: #4c71fe;
     font-size: 18px;
     text-align: center;
-    /* width: 330px; */
     height: 50px;
     padding-top: 10px;
     margin-bottom: 7px;
 }
 .taskCard {
     background-color: #fff;
-    /* width: 330px; */
     padding: 15px 10px;
     margin-bottom: 7px;
     text-align: left;
@@ -116,8 +114,11 @@ main {
 }
 .field {
     color: #1a1b1f;
-    font-size: 18px;
+    font-size: 16px;
     border: none;
+}
+.field::placeholder {
+    color: #858586;
 }
 .serviceType {
     display: inline-block;
@@ -127,7 +128,6 @@ main {
     display: inline-block;
     width: 75px;
     height: 75px;
-    /* border: 1px solid #4c71fe; */
     border: 1px solid #fff;
     border-radius: 50%;
 }

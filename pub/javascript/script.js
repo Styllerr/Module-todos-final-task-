@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
             this.newTaskButton = document.createElement('div');
             this.newTaskButton.className = 'newTaskButton';
             this.newTaskButton.innerText = '+ NEW TASK';
+            this.wrapperTaskCard = document.createElement('div');
             this.form = document.createElement('form');
             this.form.action = '../addTask';
             this.form.method = 'post';
@@ -335,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function () {
         renderPage() {
             this.wrapper.append(this.header, this.main);
             this.main.append(this.taskBlock, this.form);
-            this.taskBlock.append(this.newTaskButton);
+            this.taskBlock.append(this.newTaskButton, this.wrapperTaskCard);
             this.form.append(this.wrapperNewTaskText, this.wrapperLocation, this.wrapperServiceType);
             this.form.append(this.wrapperForTask, this.wrapperDescription);
             this.wrapperNewTaskText.append(this.addTaskButton);
@@ -353,8 +354,8 @@ document.addEventListener('DOMContentLoaded', function () {
             this.descriptionText = document.querySelector('span.descriptionText');
         }
         renderTasksList(array) {
-            
-            for(let i=0; i < array.length; i++) {
+            this.wrapperTaskCard.innerHTML = '';
+            for (let i = 0; i < array.length; i++) {
                 this.wraperTask = document.createElement('div');
                 this.wraperTask.id = array[i]._id;
                 this.wraperTask.className = 'taskCard';
@@ -362,11 +363,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.dataForTaskCard.innerText = array[i].data;
                 this.textForTeskCard = document.createElement('p');
                 this.textForTeskCard.className = 'taskDeskription';
-                
                 this.serviceForCard = document.createElement('span');
                 this.serviceForCard.id = 'serv';
                 this.serviceForCard.innerText = `I need a ${array[i].serviceType}`;
-
                 this.taskForCard = document.createElement('span');
                 this.taskForCard.id = 'task';
                 this.taskForCard.innerText = ` to ${array[i].task}`;
@@ -378,11 +377,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.deleteButtonForCard.id = 'del';
                 this.textForTeskCard.append(this.serviceForCard, this.taskForCard);
                 this.wraperTask.append(this.dataForTaskCard, this.textForTeskCard, this.editButtonForCard, this.deleteButtonForCard);
-                this.taskBlock.append(this.wraperTask);
+                this.wrapperTaskCard.append(this.wraperTask);
             }
         }
-        get taskObj() {
 
+        get taskObj() {
             return {
                 "data": "",
                 "serviceType": document.querySelector('div.serviceType>input:checked').value,
@@ -392,30 +391,43 @@ document.addEventListener('DOMContentLoaded', function () {
             };
         }
 
-        bindSelectService(metod) {
-            this.wrapperServiceType.addEventListener('click', () => {
-                metod();
-            })
+        get getId() {
+            return event.target.parentNode.id;
         }
-        bindSelectTask(metod) {
-            this.wrapperForTask.addEventListener('click', () => {
-                metod();
-            })
-        }
-        bindSelectLocation(metod) {
-            this.location.addEventListener('change', () => {
-                metod(this.location.value)
-            })
-        }
-        bindAddDescription(metod) {
-            this.description.addEventListener('change', () => {
-                metod(this.description.value)
-            })
-        }
-        bindAddTask(metod) {
-            this.addTaskButton.addEventListener('click', () => {
-                metod(this.taskObj);
 
+        bindSelectService(method) {
+            this.wrapperServiceType.addEventListener('click', () => {
+                method();
+            })
+        }
+        bindSelectTask(method) {
+            this.wrapperForTask.addEventListener('click', () => {
+                method();
+            })
+        }
+        bindSelectLocation(method) {
+            this.location.addEventListener('change', () => {
+                method(this.location.value)
+            })
+        }
+        bindAddDescription(method) {
+            this.description.addEventListener('change', () => {
+                method(this.description.value)
+            })
+        }
+        bindAddTask(method) {
+            this.addTaskButton.addEventListener('click', () => {
+                method(this.taskObj);
+
+            })
+        }
+        bindEditDeleteTask(methodEdit, methodDel) {
+            this.taskBlock.addEventListener('click', () => {
+                if (event.target.id === 'edit') {
+                    methodEdit();
+                } else if (event.target.id === 'del') {
+                    methodDel();
+                }
             })
         }
         selectService() {
@@ -514,10 +526,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    class ViewEditTask extends ViewCreate {
+        constructor() {
+            super();
+        }
+    }
+
     class ModelAddTask {
         constructor() {
             this.xhttp = new XMLHttpRequest();
-            this.tasksList;
         }
         addTasktoDB(data) {
             let newTask = data;
@@ -533,13 +550,24 @@ document.addEventListener('DOMContentLoaded', function () {
             try {
                 const response = await fetch('http://127.0.0.1:3000/tasks')
                 const data = await response.json()
-                console.log(data)
                 return data
             } catch (err) {
                 console.error('Fetch Error', err);
             }
-
         }
+
+        deleteTask(id) {
+            console.log('Delete: ' + id);
+            try {
+                fetch('http://127.0.0.1:3000/tasks/' + id, {
+                    method: 'delete'
+                })
+
+            } catch (err) {
+                console.error('Fetch Error', err);
+            }
+        }
+
         get taskData() {
             let now = new Date(),
                 weekText,
@@ -617,14 +645,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     class Controller {
-        constructor() {
+        constructor(view1, model1, edit) {
             this.view = view1;
             this.model = model1;
+            this.edit = edit;
             this.view.bindSelectService(this.handlSelectService);
             this.view.bindSelectTask(this.handlSelectTask);
             this.view.bindAddTask(this.handlAddTask);
             this.view.bindSelectLocation(this.handlSelectLocation);
             this.view.bindAddDescription(this.handlAddDescription);
+            this.view.bindEditDeleteTask(this.handlEditTask, this.handlDeleteTask);
         }
         handlSelectService = () => {
             this.view.selectService();
@@ -645,7 +675,13 @@ document.addEventListener('DOMContentLoaded', function () {
         createTasksList() {
             this.model.updatedTaskList()
                 .then(data => this.view.renderTasksList(data));
-
+        }
+        handlEditTask = () => {
+            this.edit.renderEditCard(this.view.getId);
+        }
+        handlDeleteTask = () => {
+            this.model.deleteTask(this.view.getId);
+            this.createTasksList();
         }
         appInit() {
             this.view.renderPage();
@@ -654,8 +690,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
+    class ControllerEdit {
+        constructor(view1, view2) {
+            this.view = view1;
+            this.viewEdit = view2;
+        }
+        renderEditCard(id) {
+            console.log('I will edit this card: ' + id)
+        }
+    }
+
     const view1 = new ViewCreate();
-    const model1 = new ModelAddTask()
-    const app = new Controller(view1, model1);
+    const view2 = new ViewEditTask();
+    const model1 = new ModelAddTask();
+    const edit = new ControllerEdit(view1, view2);
+    const app = new Controller(view1, model1, edit);
     app.appInit();
 })
