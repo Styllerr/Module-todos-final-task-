@@ -16,23 +16,18 @@ document.addEventListener('DOMContentLoaded', function () {
             this.newTaskButton.innerText = '+ NEW TASK';
             this.wrapperTaskCard = document.createElement('div');
             this.form = document.createElement('form');
-            this.form.action = '../addTask';
-            this.form.method = 'post';
             this.form.name = 'todo';
-            this.form.className = 'newTaskForm';
             this.wrapperNewTaskText = document.createElement('div');
             this.wrapperNewTaskText.className = 'wrapper__newTaskText';
             this.wrapperNewTaskText.innerHTML = `<div class="caption">NEW TASK</div>
             <span>I need <span class="serviceTypeText"></span> <span class="taskText">
             </span>, <span class="descriptionText"></span>.</span><p class="locationText"></p>`;
-
             this.newTaskLocation = document.createElement('p');
             this.newTaskLocation.className = 'newTask__location';
-            this.newTaskLocation.innerText = '19, Kolskaya str. Dnipro, 49112';
+            this.newTaskLocation.innerText = '';
             this.addTaskButton = document.createElement('input');
             this.addTaskButton.type = 'button';
             this.addTaskButton.className = 'newTask__button';
-            this.addTaskButton.value = 'CREATE TASK';
             this.wrapperLocation = document.createElement('div');
             this.wrapperLocation.className = 'wrapper_location';
             this.wrapperLocation.innerHTML = '<div class="caption">LOCATION</div>';
@@ -335,23 +330,89 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         renderPage() {
             this.wrapper.append(this.header, this.main);
-            this.main.append(this.taskBlock, this.form);
+            this.main.append(this.taskBlock);
             this.taskBlock.append(this.newTaskButton, this.wrapperTaskCard);
-            this.form.append(this.wrapperNewTaskText, this.wrapperLocation, this.wrapperServiceType);
-            this.form.append(this.wrapperForTask, this.wrapperDescription);
+        }
+        renderCreateNewTaskBlock() {
+            this.main.append(this.form);
+            this.form.innerHTML = '';
+            this.form.className = 'newTaskForm';
+            this.newTaskButton.innerText = '+ NEW TASK';
+            this.addTaskButton.value = 'CREATE TASK';
             this.wrapperNewTaskText.append(this.addTaskButton);
             this.wrapperLocation.append(this.location);
+            this.form.append(this.wrapperNewTaskText, this.wrapperLocation, this.wrapperServiceType);
+            this.form.append(this.wrapperForTask, this.wrapperDescription);
+            this.wrapperDescription.append(this.description);
+
             document.querySelector('label.elec').parentNode.prepend(this.electician);
             document.querySelector('label.plum').parentNode.prepend(this.plumber);
             document.querySelector('label.gard').parentNode.prepend(this.gardener);
             document.querySelector('label.hous').parentNode.prepend(this.housekeeper);
             document.querySelector('label.cook').parentNode.prepend(this.cook);
-            this.wrapperDescription.append(this.description);
 
             this.serviceTypeText = document.querySelector('span.serviceTypeText');
             this.taskText = document.querySelector('span.taskText');
             this.locationText = document.querySelector('p.locationText');
             this.descriptionText = document.querySelector('span.descriptionText');
+        }
+        renderEditTaskBlock(data) {
+            this.id = data._id;
+            this.form.parentNode.removeChild(this.form);
+            this.main.append(this.form);
+            this.form.innerHTML = '';
+            this.form.className = 'editTaskForm';
+            this.wrapperNewTaskText.append(this.addTaskButton);
+            this.addTaskButton.value = "EDIT";
+            this.wrapperLocation.append(this.location);
+            this.location.value = data.location;
+            this.form.append(this.wrapperNewTaskText, this.wrapperLocation, this.wrapperServiceType);
+            this.form.append(this.wrapperForTask, this.wrapperDescription);
+            this.wrapperDescription.append(this.description);
+            this.description.value = data.description;
+
+            document.querySelector('label.elec').parentNode.prepend(this.electician);
+            document.querySelector('label.plum').parentNode.prepend(this.plumber);
+            document.querySelector('label.gard').parentNode.prepend(this.gardener);
+            document.querySelector('label.hous').parentNode.prepend(this.housekeeper);
+            document.querySelector('label.cook').parentNode.prepend(this.cook);
+
+            this.serviceTypeText = document.querySelector('span.serviceTypeText');
+            this.taskText = document.querySelector('span.taskText');
+            this.locationText = document.querySelector('p.locationText');
+            this.descriptionText = document.querySelector('span.descriptionText');
+            let service;
+            switch (data.serviceType) {
+                case "electician":
+                    this.electician.checked = true;
+                    service = 'elec';
+                    break;
+                case "plumber":
+                    this.plumber.checked = true;
+                    service = 'plum';
+                    break;
+                case "gardener":
+                    this.gardener.checked = true;
+                    service = 'gard';
+                    break;
+                case "housekeeper":
+                    this.housekeeper.checked = true;
+                    service = 'hous';
+                    break;
+                case "cook":
+                    this.cook.checked = true;
+                    service = 'cook';
+                    break;
+                default:
+                    break;
+            }
+            this.selectService(service);
+            let query = `input[value='${data.task}'`;
+            document.querySelector(query).checked = true;
+            this.taskText.innerText = `to ${data.task}`;
+            this.locationText.innerText = `My address is ${data.location}`;
+            this.descriptionText.innerText = `${data.description}`;
+
         }
         renderTasksList(array) {
             this.wrapperTaskCard.innerHTML = '';
@@ -395,9 +456,24 @@ document.addEventListener('DOMContentLoaded', function () {
             return event.target.parentNode.id;
         }
 
+        bindCreateNewTask() {
+            this.newTaskButton.addEventListener('click', () => {
+                let form = document.querySelector('form.newTaskForm')
+                if (form) {
+                    form.classList.toggle('show');
+                    if (this.newTaskButton.innerText === '+ NEW TASK') {
+                        this.newTaskButton.innerText = '- CANCEL/FINISH CREATING'
+                    } else {
+                        this.newTaskButton.innerText = '+ NEW TASK';
+                    }
+                }
+            })
+        }
+
         bindSelectService(method) {
             this.wrapperServiceType.addEventListener('click', () => {
-                method();
+                let service = event.target.className;
+                method(service);
             })
         }
         bindSelectTask(method) {
@@ -415,23 +491,25 @@ document.addEventListener('DOMContentLoaded', function () {
                 method(this.description.value)
             })
         }
-        bindAddTask(method) {
+        bindAddTask(methodAdd, methodPut) {
             this.addTaskButton.addEventListener('click', () => {
-                method(this.taskObj);
-
+                if (this.addTaskButton.value != 'EDIT') {
+                    methodAdd(this.taskObj);
+                } else {
+                    methodPut(this.id, this.taskObj)
+                }
             })
         }
         bindEditDeleteTask(methodEdit, methodDel) {
             this.taskBlock.addEventListener('click', () => {
                 if (event.target.id === 'edit') {
-                    methodEdit();
+                    methodEdit(this.getId);
                 } else if (event.target.id === 'del') {
                     methodDel();
                 }
             })
         }
-        selectService() {
-            let service = event.target.className;
+        selectService(service) {
             switch (service) {
                 case 'elec':
                     this.wrapperForTask.innerHTML = '';
@@ -526,24 +604,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    class ViewEditTask extends ViewCreate {
-        constructor() {
-            super();
-        }
-    }
 
     class ModelAddTask {
         constructor() {
             this.xhttp = new XMLHttpRequest();
         }
         addTasktoDB(data) {
-            let newTask = data;
-            newTask.data = this.taskData;
-            console.log(newTask);
-            let json = JSON.stringify(data);
-            this.xhttp.open("POST", "http://127.0.0.1:3000/addTask", true);
-            this.xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-            this.xhttp.send(json);
+            data.data = this.taskData;
+            try {
+                fetch('http://127.0.0.1:3000/addTask/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                })
+
+            } catch (err) {
+                console.error('Fetch Error', err);
+            }
         }
 
         async updatedTaskList() {
@@ -555,12 +632,33 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Fetch Error', err);
             }
         }
-
+        async getTaskForEdit(id) {
+            try {
+                const response = await fetch('http://127.0.0.1:3000/tasks/' + id, {
+                    method: 'GET'
+                })
+                const data = await response.json()
+                return data
+            } catch (err) {
+                console.error('Fetch Error', err);
+            }
+        }
         deleteTask(id) {
-            console.log('Delete: ' + id);
             try {
                 fetch('http://127.0.0.1:3000/tasks/' + id, {
                     method: 'delete'
+                })
+
+            } catch (err) {
+                console.error('Fetch Error', err);
+            }
+        }
+        putTasktoDB(id, data) {
+            try {
+                fetch('http://127.0.0.1:3000/tasks/' + id, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
                 })
 
             } catch (err) {
@@ -645,19 +743,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     class Controller {
-        constructor(view1, model1, edit) {
+        constructor(view1, model1) {
             this.view = view1;
             this.model = model1;
-            this.edit = edit;
             this.view.bindSelectService(this.handlSelectService);
             this.view.bindSelectTask(this.handlSelectTask);
-            this.view.bindAddTask(this.handlAddTask);
+            this.view.bindCreateNewTask();
+            this.view.bindAddTask(this.handlAddTask, this.handlPutTask);
             this.view.bindSelectLocation(this.handlSelectLocation);
             this.view.bindAddDescription(this.handlAddDescription);
             this.view.bindEditDeleteTask(this.handlEditTask, this.handlDeleteTask);
         }
-        handlSelectService = () => {
-            this.view.selectService();
+        handlSelectService = (service) => {
+            this.view.selectService(service);
         }
         handlSelectTask = () => {
             this.view.selectTask();
@@ -665,7 +763,13 @@ document.addEventListener('DOMContentLoaded', function () {
         handlAddTask = (data) => {
             this.model.addTasktoDB(data);
             this.createTasksList();
+            this.view.renderCreateNewTaskBlock();
         }
+        handlPutTask = (id, data) => {
+            this.model.putTasktoDB(id, data);
+            this.appInit();
+        }
+
         handlSelectLocation = (loc) => {
             this.view.selectLocation(loc);
         }
@@ -676,8 +780,9 @@ document.addEventListener('DOMContentLoaded', function () {
             this.model.updatedTaskList()
                 .then(data => this.view.renderTasksList(data));
         }
-        handlEditTask = () => {
-            this.edit.renderEditCard(this.view.getId);
+        handlEditTask = (id) => {
+            this.model.getTaskForEdit(id)
+                .then(data => this.view.renderEditTaskBlock(data));
         }
         handlDeleteTask = () => {
             this.model.deleteTask(this.view.getId);
@@ -685,25 +790,14 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         appInit() {
             this.view.renderPage();
+            this.view.renderCreateNewTaskBlock();
             this.createTasksList();
         }
 
     }
 
-    class ControllerEdit {
-        constructor(view1, view2) {
-            this.view = view1;
-            this.viewEdit = view2;
-        }
-        renderEditCard(id) {
-            console.log('I will edit this card: ' + id)
-        }
-    }
-
     const view1 = new ViewCreate();
-    const view2 = new ViewEditTask();
     const model1 = new ModelAddTask();
-    const edit = new ControllerEdit(view1, view2);
-    const app = new Controller(view1, model1, edit);
+    const app = new Controller(view1, model1);
     app.appInit();
 })

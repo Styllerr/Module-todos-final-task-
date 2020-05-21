@@ -30,6 +30,16 @@ app.get('/tasks', (req, res) => {
        res.send(docs);
     })
 })
+app.get('/tasks/:id', (req, res) => {
+    db.collection('tasks').findOne({_id: ObjectID(req.params.id)}, (err, docs) => {
+        if (err) {
+            console.error(err);
+            return res.sendStatus(500);
+        }
+        res.send(docs);
+        
+    })
+});
 app.post('/addTask', (req, res) => {
     db.collection('tasks').insertOne(req.body, err => {
         if (err) {
@@ -40,7 +50,6 @@ app.post('/addTask', (req, res) => {
     })
 });
 app.put('/tasks/:id', (req, res) => {
-    console.log(req.body);
     db.collection('tasks').updateOne({ _id: ObjectID(req.params.id) }, { $set: { serviceType: req.body.serviceType, task: req.body.task,
         location: req.body.location, description: req.body.description }}, err => {
         if (err) {
@@ -52,7 +61,6 @@ app.put('/tasks/:id', (req, res) => {
 });
 
 app.delete('/tasks/:id', (req, res) => {
-    console.log(req.body);
     db.collection('tasks').deleteOne({ _id: ObjectID(req.params.id) }, err => {
         if (err) {
             console.error(err);

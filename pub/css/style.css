@@ -2,10 +2,12 @@
     padding: 0;
     margin: 0;
 }
-
+body {
+    width: 1200px;
+}
 .wrapper {
-    width: 1400px;
     height: 100vh;
+    overflow: hidden;
     background-image: url(../img/map_bg.png);
 }
 header {
@@ -62,6 +64,9 @@ main {
     padding-top: 10px;
     margin-bottom: 7px;
 }
+.newTaskButton:hover {
+    cursor: pointer;
+}
 .taskCard {
     background-color: #fff;
     padding: 15px 10px;
@@ -70,8 +75,21 @@ main {
 }
 .newTaskForm {
     position: absolute;
-    top: 0;
+    transition: all 300ms ease-in-out;
+	right: -100vh;
+	top: 0px;
+	z-index: 9;
+    width: 505px;
+    height: 100vh;
+    background-color: #fff;
+}
+form.show {
     right: 0;
+}
+.editTaskForm {
+    position: absolute;
+	right: 0;
+	top: 0px;
     width: 505px;
     height: 100vh;
     background-color: #fff;
