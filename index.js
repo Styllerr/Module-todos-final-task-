@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 let MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
+const config = require('config');
 
 let app = express();
 app.use(bodyParser.json());
@@ -11,8 +12,8 @@ app.use(cors());
 app.use(express.static(path.join(__dirname + '/pub')));
 
 let db;
-const PORT = process.env.PORT || 3000
-const url = 'mongodb+srv://todoser:loD9ILEH6r8o@cluster0.a8nsi.mongodb.net/todos?retryWrites=true&w=majority';
+const PORT = process.env.PORT || config.get('port');
+const url = process.env.mongoURI || config.get('mongoURI');
 const dbname = "todos";
 const client = new MongoClient(url, {
     useUnifiedTopology: true
@@ -76,10 +77,17 @@ app.delete('/tasks/:id', (req, res) => {
         res.sendStatus(200);
     })
 });
+async function start() {
+    try {
+        await client.connect(err => {
+            db = client.db(dbname);
+        });
+        console.log('Connection success...');
+        app.listen(PORT, () => console.log(`Server running at port: ${PORT}...`));
+        
+    } catch (error) {
+        console.log('Server not started', error);
+    } 
+}
 
-client.connect(err => {
-
-    console.log('Connection success...');
-    db = client.db(dbname);
-    app.listen(PORT, () => console.log(`Server running at port: ${PORT}...`));
-});
+start();

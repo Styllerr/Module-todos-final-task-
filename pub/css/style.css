@@ -3,10 +3,11 @@
     margin: 0;
 }
 body {
-    width: 1200px;
-}
+background-color: rgb(168, 166, 166);}
 .wrapper {
     height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
     overflow: hidden;
     background-repeat: no-repeat;
     background-image: url(../img/map_bg.png);
