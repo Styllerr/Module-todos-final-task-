@@ -16,13 +16,13 @@ class Controller {
     handlSelectTask = () => {
         this.view.selectTask();
     }
-    handlAddTask = (data) => {
-        this.model.addTasktoDB(data);
+    handlAddTask = async (data) => {
+        await this.model.addTasktoDB(data);
         this.createTasksList();
         this.view.renderCreateNewTaskBlock();
     }
-    handlPutTask = (id, data) => {
-        this.model.putTasktoDB(id, data);
+    handlPutTask = async (id, data) => {
+        await this.model.putTasktoDB(id, data);
         this.appInit();
     }
 
@@ -40,8 +40,8 @@ class Controller {
         this.model.getTaskForEdit(id)
             .then(data => this.view.renderEditTaskBlock(data));
     }
-    handlDeleteTask = () => {
-        this.model.deleteTask(this.view.getId);
+    handlDeleteTask = async () => {
+        await this.model.deleteTask(this.view.getId);
         this.createTasksList();
     }
     appInit() {

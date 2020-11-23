@@ -1,16 +1,15 @@
 class ModelAddTask {
     constructor() {
-        this.xhttp = new XMLHttpRequest();
+        this.url = 'http://127.0.0.1:3000';
     }
-    addTasktoDB(data) {
+    async addTasktoDB(data) {
         data.data = this.taskData;
         try {
-            fetch('http://127.0.0.1:3000/addTask/', {
+            await fetch(this.url + '/api/tasks/addTask', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             })
-
         } catch (err) {
             console.error('Fetch Error', err);
         }
@@ -18,7 +17,7 @@ class ModelAddTask {
 
     async updatedTaskList() {
         try {
-            const response = await fetch('http://127.0.0.1:3000/tasks')
+            const response = await fetch(this.url + '/api/tasks')
             const data = await response.json()
             return data
         } catch (err) {
@@ -27,7 +26,7 @@ class ModelAddTask {
     }
     async getTaskForEdit(id) {
         try {
-            const response = await fetch('http://127.0.0.1:3000/tasks/' + id, {
+            const response = await fetch(this.url + '/api/tasks/' + id, {
                 method: 'GET'
             })
             const data = await response.json()
@@ -36,19 +35,18 @@ class ModelAddTask {
             console.error('Fetch Error', err);
         }
     }
-    deleteTask(id) {
+    async deleteTask(id) {
         try {
-            fetch('http://127.0.0.1:3000/tasks/' + id, {
+            await fetch(this.url + '/api/tasks/' + id, {
                 method: 'delete'
             })
-
         } catch (err) {
             console.error('Fetch Error', err);
         }
     }
-    putTasktoDB(id, data) {
+    async putTasktoDB(id, data) {
         try {
-            fetch('http://127.0.0.1:3000/tasks/' + id, {
+            await fetch(this.url + '/api/tasks/' + id, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)

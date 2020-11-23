@@ -34,7 +34,7 @@ class ViewCreate {
         this.location.type = 'text';
         this.location.name = 'location';
         this.location.className = 'field location';
-        this.location.placeholder = '19, Kolskaya str. Dnipro, 49112';
+        this.location.placeholder = '1, First str. Dnipro, 49000';
         this.wrapperServiceType = document.createElement('div');
         this.wrapperServiceType.className = 'wrapper_serviceType';
         this.wrapperServiceType.innerHTML = `<div class="caption">SERVICE TYPE</div>
