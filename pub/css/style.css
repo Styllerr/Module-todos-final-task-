@@ -136,9 +136,15 @@ form.show {
     color: #1a1b1f;
     font-size: 16px;
     border: none;
+    padding: 7px;
 }
+input.field:focus {
+    border: 1px solid #ababac;
+    outline: none;
+}
+
 .field::placeholder {
-    color: #858586;
+    opacity: 0.4;
 }
 .serviceType {
     display: inline-block;
