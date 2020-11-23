@@ -1,6 +1,6 @@
 class ModelAddTask {
     constructor() {
-        this.url = 'http://127.0.0.1:3000';
+        this.url = 'https://module-todos.herokuapp.com/';
     }
     async addTasktoDB(data) {
         data.data = this.taskData;
