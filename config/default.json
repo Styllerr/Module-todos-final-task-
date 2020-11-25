@@ -1,4 +1,4 @@
 {
     "port": 3000,
-    "mongoURI": "mongodb://localhost:27017/todos"
+    "mongoURI": "mongodb+srv://todoser:loD9ILEH6r8o@cluster0.a8nsi.mongodb.net/todos"
 }
