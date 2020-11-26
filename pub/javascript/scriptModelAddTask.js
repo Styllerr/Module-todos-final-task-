@@ -1,4 +1,4 @@
-class ModelAddTask {
+export default class ModelAddTask {
     constructor() {
         // this.url = 'https://module-todos.herokuapp.com';
         this.url = 'http://localhost:3000';
@@ -9,7 +9,7 @@ class ModelAddTask {
             await fetch(this.url + '/api/tasks/addTask', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
             })
         } catch (err) {
             console.error('Fetch Error', err);

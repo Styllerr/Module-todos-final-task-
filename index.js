@@ -8,7 +8,7 @@ const config = require('config');
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname + '/pub')));
+app.use(express.static(path.join(__dirname + '/dist')));
 app.use('/api/tasks', require('./routes/tasks-route') );
 
 const PORT = process.env.PORT || config.get('port');

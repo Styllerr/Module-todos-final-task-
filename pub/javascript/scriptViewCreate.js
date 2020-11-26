@@ -1,4 +1,4 @@
-class ViewCreate {
+export default class ViewCreate {
     constructor() {
         this.wrapper = document.querySelector('div.wrapper');
         this.header = document.createElement('header');

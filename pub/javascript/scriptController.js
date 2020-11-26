@@ -1,4 +1,4 @@
-class Controller {
+export default class Controller {
     constructor(view1, model1) {
         this.view = view1;
         this.model = model1;
