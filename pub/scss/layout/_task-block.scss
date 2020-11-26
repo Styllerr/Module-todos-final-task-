@@ -1,0 +1,30 @@
+.taskBlock {
+    position: absolute;
+    top: 5px;
+    left: 20px;
+    width: 25%;
+    height: 90vh;
+    overflow: auto;
+}
+.newTaskButton {
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #4c71fe;
+    font-size: 18px;
+    text-align: center;
+    height: 50px;
+    padding-top: 10px;
+    margin-bottom: 7px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.taskCard {
+    background-color: $white;
+    padding: 15px 10px;
+    margin-bottom: 7px;
+    text-align: left;
+    & > p {
+        margin: 0.4rem 0;
+    }
+}

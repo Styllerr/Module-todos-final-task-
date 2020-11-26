@@ -2,6 +2,7 @@ class ViewCreate {
     constructor() {
         this.wrapper = document.querySelector('div.wrapper');
         this.header = document.createElement('header');
+        this.header.className = 'header';
         this.header.innerHTML = `<ul class="header_menu">
         <li class="active"><a href="#">JobUp</a></li>
         <li><a href="#">DASHBOARD</a></li>
@@ -17,7 +18,7 @@ class ViewCreate {
         this.form = document.createElement('form');
         this.form.name = 'todo';
         this.wrapperNewTaskText = document.createElement('div');
-        this.wrapperNewTaskText.className = 'wrapper__newTaskText';
+        this.wrapperNewTaskText.className = 'wrapper-newTaskText';
         this.wrapperNewTaskText.innerHTML = `<div class="caption">NEW TASK</div>
         <span>I need <span class="serviceTypeText"></span> <span class="taskText">
         </span>, <span class="descriptionText"></span>.</span><p class="locationText"></p>`;
@@ -28,7 +29,7 @@ class ViewCreate {
         this.addTaskButton.type = 'button';
         this.addTaskButton.className = 'newTask__button';
         this.wrapperLocation = document.createElement('div');
-        this.wrapperLocation.className = 'wrapper_location';
+        this.wrapperLocation.className = 'wrapper-location';
         this.wrapperLocation.innerHTML = '<div class="caption">LOCATION</div>';
         this.location = document.createElement('input');
         this.location.type = 'text';
@@ -36,7 +37,7 @@ class ViewCreate {
         this.location.className = 'field location';
         this.location.placeholder = '1, First str. Dnipro, 49000';
         this.wrapperServiceType = document.createElement('div');
-        this.wrapperServiceType.className = 'wrapper_serviceType';
+        this.wrapperServiceType.className = 'wrapper-serviceType';
         this.wrapperServiceType.innerHTML = `<div class="caption">SERVICE TYPE</div>
                 <div class="serviceType">
                     <label class="elec" for="electician"></label>
@@ -89,10 +90,11 @@ class ViewCreate {
         this.cook.value = 'cook';
         this.cook.id = 'cook';
 
-        this.wrapperForTask = document.createElement('div')
+        this.wrapperForTask = document.createElement('div');
+        this.wrapperForTask.className = 'wrapper-task';
 
         this.wrapperElecticianTask = document.createElement('div');
-        this.wrapperElecticianTask.className = 'wrapper_electicianTask';
+        this.wrapperElecticianTask.className = 'wrapper-electicianTask';
         this.wrapperElecticianTask.innerHTML = `<div class="caption">ELECTICIAN TASKS</div>
         <div class="task">
             <label class="taskName lamp" for="lamp">Lamp replacement</label>
@@ -140,7 +142,7 @@ class ViewCreate {
         this.trouble.id = 'trouble';
 
         this.wrapperPlumberTask = document.createElement('div');
-        this.wrapperPlumberTask.className = 'wrapper_plumberTask';
+        this.wrapperPlumberTask.className = 'wrapper-plumberTask';
         this.wrapperPlumberTask.innerHTML = `<div class="caption">PLUMBER TASKS</div>
         <div class="task">
             <label class="taskName toilet" for="toilet">Unblock a toilet</label>
@@ -197,7 +199,7 @@ class ViewCreate {
         this.installToilet.id = 'installToilet';
 
         this.wrapperGardenerTask = document.createElement('div');
-        this.wrapperGardenerTask.className = 'wrapper_gardenerTask';
+        this.wrapperGardenerTask.className = 'wrapper-gardenerTask';
         this.wrapperGardenerTask.innerHTML = `<div class="caption">GARDENER TASKS</div>
         <div class="task">
             <label class="taskName watering" for="watering">Watering plants</label>
@@ -237,7 +239,7 @@ class ViewCreate {
         this.flower.id = 'flower';
 
         this.wrapperHousekeeperTask = document.createElement('div');
-        this.wrapperHousekeeperTask.className = 'wrapper_housekeeperTask';
+        this.wrapperHousekeeperTask.className = 'wrapper-housekeeperTask';
         this.wrapperHousekeeperTask.innerHTML = `<div class="caption">HOUSEKEEPER TASKS</div>
         <div class="task">
             <label class="taskName cleaning" for="cleaning">Cleaning</label>
@@ -286,7 +288,7 @@ class ViewCreate {
         this.babysitting.id = 'babysitting';
 
         this.wrapperCookingTask = document.createElement('div');
-        this.wrapperCookingTask.className = 'wrapper_cookingTask';
+        this.wrapperCookingTask.className = 'wrapper-cookingTask';
         this.wrapperCookingTask.innerHTML = `<div class="caption">COOKING TASKS</div>
         <div class="task">
             <label class="taskName lunch" for="lunch">Cooking lunch</label>
@@ -317,7 +319,7 @@ class ViewCreate {
         this.banquet.id = 'banquet';
 
         this.wrapperDescription = document.createElement('div');
-        this.wrapperDescription.className = 'wrapper_description';
+        this.wrapperDescription.className = 'wrapper-description';
         this.wrapperDescription.innerHTML = `<div class="caption">TASK DESCRIPTION</div>`;
 
         this.description = document.createElement('input');

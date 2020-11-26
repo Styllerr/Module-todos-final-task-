@@ -1,0 +1,129 @@
+.newTaskForm {
+    position: absolute;
+    transition: all 300ms ease-in-out;
+    right: -100vh;
+    top: 0px;
+    z-index: 9;
+    width: 40%;
+    min-height: 80vh;
+    background-color: $white;
+    &.show {
+        right: 0;
+    }
+}
+.editTaskForm {
+    position: absolute;
+    right: 0;
+    top: 0px;
+    width: 505px;
+    height: 100vh;
+    background-color: $white;
+}
+.wrapper-newTaskText {
+    padding: 15px 30px;
+    background-color: $white-smoke;
+}
+.caption {
+    font-size: 14px;
+    color: $suva-grey;
+    margin-bottom: 15px;
+}
+.newTask {
+    &__text {
+        font-size: 24px;
+        color: $black-russian;
+    }
+    &__location {
+        margin: 15px 0;
+    }
+    &__button {
+        width: 150px;
+        height: 40px;
+        margin-top: 15px;
+        color: $white;
+        background-color: $neon-blue;
+        border: 1px solid $neon-blue;
+        border-radius: 4px;
+    }
+}
+.wrapper {
+    &-location,
+    &-serviceType,
+    &-plumberTask,
+    &-electicianTask,
+    &-description,
+    &-gardenerTask,
+    &-housekeeperTask,
+    &-cookingTask {
+        padding: 15px 30px;
+        border-bottom: 1px solid $white-smoke;
+    }
+}
+input {
+    &.field {
+        color: $black-russian;
+        font-size: 16px;
+        border: none;
+        padding: 7px;
+        &:focus {
+            border: 1px solid #ababac;
+            outline: none;
+        }
+        &::placeholder {
+            opacity: 0.4;
+        }
+    }
+}
+.serviceType {
+    display: inline-block;
+    text-align: center;
+    & > label {
+        display: inline-block;
+        width: 75px;
+        height: 75px;
+        border: 1px solid $white;
+        border-radius: 50%;
+    }
+    & > input:checked + label {
+        border: 1px solid $neon-blue;
+    }
+}
+.elec {
+    @include icon-bckg($url-elec);
+}
+.plum {
+    @include icon-bckg($url-plum);
+}
+.gard {
+    @include icon-bckg($url-gard);
+}
+.hous {
+    @include icon-bckg($url-hous);
+}
+.cook {
+    @include icon-bckg($url-cook);
+}
+.wrapper-serviceType input,
+.wrapper-task input {
+    display: none;
+}
+.task {
+    color: $black-russian;
+    font-size: 16px;
+    display: inline-block;
+    width: 32%;
+    text-align: center;
+    margin-bottom: 15px;
+    & > input:checked + label {
+        border: 1px solid $neon-blue;
+        border-radius: 20px;
+    }
+}
+.taskName {
+    display: inline-block;
+    border: 1px solid $white;
+    padding: 5px 10px;
+    &:hover {
+        border: 1px solid $neon-blue;
+    }
+}
