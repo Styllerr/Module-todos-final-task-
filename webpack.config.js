@@ -4,7 +4,6 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     context: path.resolve(__dirname, 'pub'),
-    mode: 'development',
     entry: './javascript/script.js',
     output: {
         filename: '[name].[contenthash].js',
@@ -21,18 +20,14 @@ module.exports = {
             {
                 test: /\.js$/i,
                 exclude: '/node_modules/',
-                include: path.resolve(__dirname, 'javascript'),
                 loader: 'babel-loader',
-                options: {
-                    presets: ['@babel/preset-env']
-                },
             },
             {
                 test: /\.css$/i,
                 use: ['style-loader', 'css-loader'],
             },
             {
-                test: /\.(png|jpe?g|gif)$/i,
+                test: /\.(png|jpe?g|gif|svg)$/i,
                 use: [
                     {
                         loader: 'file-loader',
@@ -41,14 +36,7 @@ module.exports = {
                         },
                     },
                 ],
-            },
-            {
-                test: /\.svg/,
-                use: {
-                    loader: "svg-url-loader",
-                    options: {},
-                }
-            },
+            }
         ],
     }
 };
