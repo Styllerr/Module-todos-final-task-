@@ -5,6 +5,7 @@ export default class Controller {
         this.view.bindSelectService(this.handlSelectService);
         this.view.bindSelectTask(this.handlSelectTask);
         this.view.bindCreateNewTask();
+        this.view.bindRegestrationButton(this.handlRegistration);
         this.view.bindAddTask(this.handlAddTask, this.handlPutTask);
         this.view.bindSelectLocation(this.handlSelectLocation);
         this.view.bindAddDescription(this.handlAddDescription);
@@ -15,6 +16,9 @@ export default class Controller {
     }
     handlSelectTask = () => {
         this.view.selectTask();
+    }
+    handlRegistration = () => {
+        this.view.renderModal()
     }
     handlAddTask = async (data) => {
         await this.model.addTasktoDB(data);

@@ -6,8 +6,24 @@ export default class ViewCreate {
         this.header.innerHTML = `<ul class="header_menu">
         <li class="active"><a href="#">JobUp</a></li>
         <li><a href="#">DASHBOARD</a></li>
-        <li><a href="#">HISTORY</a></li>
-        <li class="profile"><a href="#">Profile</a></li></ul>`;
+        <li><a href="#">HISTORY</a></li></ul>`;
+        this.wrappForButton = document.createElement('div');
+        this.wrappForButton.className = 'wrappForButton';
+        this.loginButton = document.createElement('button');
+        this.loginButton.innerText = 'Log In'
+        this.registrButton = document.createElement('button');
+        this.registrButton.innerText = "Sign Up"
+        this.modalRegistration = document.createElement('div');
+        this.modalRegistration.className = 'wrapperModal';
+        this.modalCard = document.createElement('div');
+        this.modalCard.className = 'modalCard';
+        this.modalCard.innerHTML = `
+        <form class="modalCard_regForm" method=POST>
+        <label for="candidatName">Name</label>
+        <input class="candidatName" type="text">
+        <input class="candidatSubmit" type="submit"  name="Submit">
+        <input class="candidatReset" type="reset"  name="Cancel">
+        </form>`;
         this.main = document.createElement('main');
         this.taskBlock = document.createElement('div');
         this.taskBlock.className = 'taskBlock';
@@ -330,9 +346,16 @@ export default class ViewCreate {
 
     }
     renderPage() {
+
+        this.wrappForButton.append(this.loginButton, this.registrButton);
+        this.header.append(this.wrappForButton);
         this.wrapper.append(this.header, this.main);
         this.main.append(this.taskBlock);
         this.taskBlock.append(this.newTaskButton, this.wrapperTaskCard);
+    }
+    renderModal() {
+        console.log('Modal window for reg is show')
+        this.wrapper.append(this.modalRegistration, this.modalCard)
     }
     renderCreateNewTaskBlock() {
         this.main.append(this.form);
@@ -456,7 +479,11 @@ export default class ViewCreate {
     get getId() {
         return event.target.parentNode.id;
     }
-
+    bindRegestrationButton(method) {
+        this.registrButton.addEventListener('click', () => {
+            method();
+        })
+    }
     bindCreateNewTask() {
         this.newTaskButton.addEventListener('click', () => {
             let form = document.querySelector('form.newTaskForm')
