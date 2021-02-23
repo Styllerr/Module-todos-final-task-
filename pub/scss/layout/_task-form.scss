@@ -66,7 +66,7 @@ input {
         border: none;
         padding: 7px;
         &:focus {
-            border: 1px solid #ababac;
+            border: 1px solid $grey;
             outline: none;
         }
         &::placeholder {

@@ -1,4 +1,4 @@
-export default class ViewCreate {
+class ViewCreate {
     constructor() {
         this.wrapper = document.querySelector('div.wrapper');
         this.header = document.createElement('header');
@@ -13,6 +13,7 @@ export default class ViewCreate {
         this.loginButton.innerText = 'Log In'
         this.registrButton = document.createElement('button');
         this.registrButton.innerText = "Sign Up"
+
         this.modalRegistration = document.createElement('div');
         this.modalRegistration.className = 'wrapperModal';
         this.modalCard = document.createElement('div');
@@ -21,8 +22,8 @@ export default class ViewCreate {
         <form class="modalCard_regForm" method=POST>
         <label for="candidatName">Name</label>
         <input class="candidatName" type="text">
-        <input class="candidatSubmit" type="submit"  name="Submit">
-        <input class="candidatReset" type="reset"  name="Cancel">
+        <input class="candidatSubmit" type="submit"  name="Submit" value="Submit">
+        <input class="candidatReset" type="reset"  name="Cancel" value="Cancel">
         </form>`;
         this.main = document.createElement('main');
         this.taskBlock = document.createElement('div');
@@ -355,7 +356,7 @@ export default class ViewCreate {
     }
     renderModal() {
         console.log('Modal window for reg is show')
-        this.wrapper.append(this.modalRegistration, this.modalCard)
+        this.wrapper.prepend(this.modalRegistration, this.modalCard)
     }
     renderCreateNewTaskBlock() {
         this.main.append(this.form);

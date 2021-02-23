@@ -1,4 +1,4 @@
-export default class ModelAddTask {
+class ModelAddTask {
     constructor() {
         // this.url = 'https://module-todos.herokuapp.com';
         this.url = 'http://localhost:3000';

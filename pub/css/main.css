@@ -44,8 +44,7 @@ h1 {
  * 2. Show the overflow in Edge and IE.
  */
 hr {
-  -webkit-box-sizing: content-box;
-          box-sizing: content-box;
+  box-sizing: content-box;
   /* 1 */
   height: 0;
   /* 1 */
@@ -82,8 +81,7 @@ abbr[title] {
   /* 1 */
   text-decoration: underline;
   /* 2 */
-  -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
+  text-decoration: underline dotted;
   /* 2 */
 }
 
@@ -230,8 +228,7 @@ fieldset {
  *    `fieldset` elements in all browsers.
  */
 legend {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   /* 1 */
   color: inherit;
   /* 2 */
@@ -265,8 +262,7 @@ textarea {
  */
 [type="checkbox"],
 [type="radio"] {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   /* 1 */
   padding: 0;
   /* 2 */
@@ -361,33 +357,32 @@ main {
 .header {
   padding: 10px;
   background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
 }
 
 .header_menu {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -ms-flex-line-pack: center;
-      align-content: center;
+  justify-content: space-between;
+  min-width: 50%;
+  align-content: center;
   font-family: sans-serif;
   font-size: 16px;
 }
 
-.header_menu > li {
+.header_menu li {
   display: inline-block;
+  margin-right: 15px;
 }
 
 .header_menu a {
-  color: black;
+  color: #000000;
   text-decoration: none;
 }
 
 .header_menu a:visited,
 .header_menu a :active {
-  color: black;
+  color: #000000;
   text-decoration: none;
 }
 
@@ -397,11 +392,22 @@ main {
   font-weight: bold;
 }
 
-.profile {
+.header div {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.header div button {
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  margin-right: 15px;
+}
+
+.login,
+.registr {
   text-transform: uppercase;
-  -ms-flex-preferred-size: 60%;
-      flex-basis: 60%;
-  text-align: right;
+  flex-basis: 60%;
   padding-right: 15px;
 }
 
@@ -415,9 +421,8 @@ main {
 }
 
 .newTaskButton {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  background-color: #fff;
+  box-sizing: border-box;
+  background-color: #ffffff;
   color: #4c71fe;
   font-size: 18px;
   text-align: center;
@@ -443,7 +448,6 @@ main {
 
 .newTaskForm {
   position: absolute;
-  -webkit-transition: all 300ms ease-in-out;
   transition: all 300ms ease-in-out;
   right: -100vh;
   top: 0px;
@@ -509,20 +513,8 @@ input.field {
 }
 
 input.field:focus {
-  border: 1px solid #ababac;
+  border: 1px solid #a8a6a6;
   outline: none;
-}
-
-input.field::-webkit-input-placeholder {
-  opacity: 0.4;
-}
-
-input.field:-ms-input-placeholder {
-  opacity: 0.4;
-}
-
-input.field::-ms-input-placeholder {
-  opacity: 0.4;
 }
 
 input.field::placeholder {
@@ -593,5 +585,29 @@ input.field::placeholder {
 
 .taskName:hover {
   border: 1px solid #4c71fe;
+}
+
+.wrapperModal {
+  position: absolute;
+  width: 1200px;
+  height: 98vh;
+  opacity: 0.8;
+  z-index: 1;
+  background-color: #f1f1f1;
+}
+
+.modalCard {
+  position: absolute;
+  top: 20%;
+  right: 35%;
+  width: 30%;
+  z-index: 2;
+}
+
+.modalCard_regForm {
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /*# sourceMappingURL=main.css.map */
