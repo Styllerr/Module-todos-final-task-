@@ -13,18 +13,53 @@ class ViewCreate {
         this.loginButton.innerText = 'Log In'
         this.registrButton = document.createElement('button');
         this.registrButton.innerText = "Sign Up"
-
-        this.modalRegistration = document.createElement('div');
-        this.modalRegistration.className = 'wrapperModal';
+        // Modal window for reg/auth
+        this.modalWrapper = document.createElement('div');
+        this.modalWrapper.className = 'modal-wrapper';
         this.modalCard = document.createElement('div');
-        this.modalCard.className = 'modalCard';
-        this.modalCard.innerHTML = `
-        <form class="modalCard_regForm" method=POST>
-        <label for="candidatName">Name</label>
-        <input class="candidatName" type="text">
-        <input class="candidatSubmit" type="submit"  name="Submit" value="Submit">
-        <input class="candidatReset" type="reset"  name="Cancel" value="Cancel">
-        </form>`;
+        this.modalCard.className = 'modal';
+        this.modalHeader = document.createElement('h1');
+        this.modalHeader.className = 'modal__header';
+        this.modalForm = document.createElement('form');
+        this.modalForm.className = 'modal__form form';
+        this.modalFormLableName = document.createElement('lable');
+        this.modalFormLableName.className = 'form__lable';
+        this.modalFormLableName.innerText = 'User name';
+        this.modalFormLableMail = document.createElement('lable');
+        this.modalFormLableMail.className = 'form__lable';
+        this.modalFormLableMail.innerText = 'E-mail';
+        this.modalFormLablePass = document.createElement('lable');
+        this.modalFormLablePass.className = 'form__lable';
+        this.modalFormLablePass.innerText = 'Enter password';
+        this.modalFormLableRePass = document.createElement('lable');
+        this.modalFormLableRePass.className = 'form__lable';
+        this.modalFormLableRePass.innerText = 'Re-enter password';
+
+        this.modalFormInputName = document.createElement('input');
+        this.modalFormInputName.type = 'text';
+        this.modalFormInputName.name = 'userName';
+        this.modalFormInputMail = document.createElement('input');
+        this.modalFormInputMail.type = 'email';
+        this.modalFormInputMail.name = 'email';
+        this.modalFormInputPass = document.createElement('input');
+        this.modalFormInputPass.type = 'password';
+        this.modalFormInputPass.name = 'password';
+        this.modalFormInputRePass = document.createElement('input');
+        this.modalFormInputRePass.type = 'password';
+        this.modalFormInputRePass.name = 'rePassword';
+
+        this.modalFormButtonGroup = document.createElement('div');
+        this.modalFormButtonGroup.className = 'form__button-group';
+        this.modalFormButtonSubmit = document.createElement('button');
+        this.modalFormButtonSubmit.className = 'form__button';
+        this.modalFormButtonSubmit.type = 'submit';
+        this.modalFormButtonReset = document.createElement('button');
+        this.modalFormButtonReset.className = 'form__button';
+        this.modalFormButtonReset.type = 'reset';
+        this.modalFormButtonReset.innerText = 'Cancel';
+
+
+
         this.main = document.createElement('main');
         this.taskBlock = document.createElement('div');
         this.taskBlock.className = 'taskBlock';
@@ -355,8 +390,20 @@ class ViewCreate {
         this.taskBlock.append(this.newTaskButton, this.wrapperTaskCard);
     }
     renderModal() {
-        console.log('Modal window for reg is show')
-        this.wrapper.prepend(this.modalRegistration, this.modalCard)
+        this.modalHeader.innerText = 'Sign Up';
+        this.modalForm.setAttribute('action', '/auth');
+        this.modalForm.setAttribute('method', 'POST');
+        this.modalFormLableName.append(this.modalFormInputName);
+        this.modalFormLableMail.append(this.modalFormInputMail);
+        this.modalFormLablePass.append(this.modalFormInputPass);
+        this.modalFormLableRePass.append(this.modalFormInputRePass);
+        this.modalFormButtonSubmit.innerText = 'Sign Up';
+        this.modalFormButtonGroup.append(this.modalFormButtonSubmit, this.modalFormButtonReset);
+        this.modalForm.append(this.modalFormLableName, this.modalFormLableMail,
+            this.modalFormLablePass, this.modalFormLableRePass, this.modalFormButtonGroup
+        )
+        this.modalCard.append(this.modalHeader, this.modalForm)
+        this.wrapper.prepend(this.modalWrapper, this.modalCard)
     }
     renderCreateNewTaskBlock() {
         this.main.append(this.form);

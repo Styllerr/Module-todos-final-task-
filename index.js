@@ -14,9 +14,16 @@ app.use('/api/tasks', require('./routes/tasks-route') );
 const PORT = process.env.PORT || config.get('port');
 const url = process.env.mongoURI || config.get('mongoURI');
 
+const urlencodedParser = bodyParser.urlencoded({extended: false});
+
 app.get('/', (req, res) => {
     res.sendFile('index.html')
 });
+app.post('/auth', urlencodedParser, (req, res) => {
+    if(!req.body) return res.sendStatus(400);
+    console.log(req.body);
+});
+
 
 async function start() {
     try {
