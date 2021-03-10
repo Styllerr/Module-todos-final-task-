@@ -391,7 +391,7 @@ class ViewCreate {
     }
     renderModal() {
         this.modalHeader.innerText = 'Sign Up';
-        this.modalForm.setAttribute('action', '/auth');
+        this.modalForm.setAttribute('action', '/auth/signup');
         this.modalForm.setAttribute('method', 'POST');
         this.modalFormLableName.append(this.modalFormInputName);
         this.modalFormLableMail.append(this.modalFormInputMail);

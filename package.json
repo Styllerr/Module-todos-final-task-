@@ -4,6 +4,7 @@
   "description": "Final task in Hillel FrontEndPro",
   "main": "index.js",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "config": "^3.3.2",
     "core-js": "^3.8.0",
     "cors": "^2.8.5",
