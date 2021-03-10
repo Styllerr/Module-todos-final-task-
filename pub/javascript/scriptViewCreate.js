@@ -389,7 +389,7 @@ class ViewCreate {
         this.main.append(this.taskBlock);
         this.taskBlock.append(this.newTaskButton, this.wrapperTaskCard);
     }
-    renderModal() {
+    renderRegModal() {
         this.modalHeader.innerText = 'Sign Up';
         this.modalForm.setAttribute('action', '/auth/signup');
         this.modalForm.setAttribute('method', 'POST');
@@ -405,6 +405,20 @@ class ViewCreate {
         this.modalCard.append(this.modalHeader, this.modalForm)
         this.wrapper.prepend(this.modalWrapper, this.modalCard)
     }
+    renderAuthModal() {
+        this.modalHeader.innerText = 'Sign In';
+        this.modalForm.setAttribute('action', '/auth/signin');
+        this.modalForm.setAttribute('method', 'POST');
+        this.modalFormLableMail.append(this.modalFormInputMail);
+        this.modalFormLablePass.append(this.modalFormInputPass);
+        this.modalFormButtonSubmit.innerText = 'Sign In';
+        this.modalFormButtonGroup.append(this.modalFormButtonSubmit, this.modalFormButtonReset);
+        this.modalForm.append(this.modalFormLableMail,
+            this.modalFormLablePass, this.modalFormButtonGroup)
+        this.modalCard.append(this.modalHeader, this.modalForm)
+        this.wrapper.prepend(this.modalWrapper, this.modalCard)
+    }
+
     renderCreateNewTaskBlock() {
         this.main.append(this.form);
         this.form.innerHTML = '';
@@ -529,6 +543,11 @@ class ViewCreate {
     }
     bindRegestrationButton(method) {
         this.registrButton.addEventListener('click', () => {
+            method();
+        })
+    }
+    bindLoginButton(method) {
+        this.loginButton.addEventListener('click', () => {
             method();
         })
     }

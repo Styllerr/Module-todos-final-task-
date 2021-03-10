@@ -6,6 +6,7 @@ class Controller {
         this.view.bindSelectTask(this.handlSelectTask);
         this.view.bindCreateNewTask();
         this.view.bindRegestrationButton(this.handlRegistration);
+        this.view.bindLoginButton(this.handlAuthorisation);
         this.view.bindAddTask(this.handlAddTask, this.handlPutTask);
         this.view.bindSelectLocation(this.handlSelectLocation);
         this.view.bindAddDescription(this.handlAddDescription);
@@ -18,8 +19,12 @@ class Controller {
         this.view.selectTask();
     }
     handlRegistration = () => {
-        this.view.renderModal()
+        this.view.renderRegModal()
     }
+    handlAuthorisation = () => {
+        this.view.renderAuthModal()
+    }
+
     handlAddTask = async (data) => {
         await this.model.addTasktoDB(data);
         this.createTasksList();
