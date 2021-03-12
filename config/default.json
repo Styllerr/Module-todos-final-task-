@@ -1,4 +1,5 @@
 {
     "port": 3000,
-    "mongoURI": "mongodb+srv://todoser:loD9ILEH6r8o@cluster0.a8nsi.mongodb.net/todos"
+    "mongoURI": "mongodb+srv://todoser:loD9ILEH6r8o@cluster0.a8nsi.mongodb.net/todos",
+    "jwtWord": "test todos"
 }
