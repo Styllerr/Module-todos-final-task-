@@ -2,7 +2,8 @@ const { Schema, model } = require('mongoose');
 const ObjectId = Schema.ObjectId
 
 const Task = new Schema({
-    id: ObjectId,
+    _id: ObjectId,
+    userId: {type: String, required: true},
     data: {type: String, required: true},
     serviceType: {type: String, required: true},
     task: {type: String, required: true},

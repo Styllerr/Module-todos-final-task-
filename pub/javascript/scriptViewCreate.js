@@ -391,8 +391,8 @@ class ViewCreate {
     }
     renderRegModal() {
         this.modalHeader.innerText = 'Sign Up';
-        this.modalForm.setAttribute('action', '/auth/signup');
-        this.modalForm.setAttribute('method', 'POST');
+        // this.modalForm.setAttribute('action', '/auth/signup');
+        // this.modalForm.setAttribute('method', 'POST');
         this.modalFormLableName.append(this.modalFormInputName);
         this.modalFormLableMail.append(this.modalFormInputMail);
         this.modalFormLablePass.append(this.modalFormInputPass);
@@ -401,9 +401,10 @@ class ViewCreate {
         this.modalFormButtonGroup.append(this.modalFormButtonSubmit, this.modalFormButtonReset);
         this.modalForm.append(this.modalFormLableName, this.modalFormLableMail,
             this.modalFormLablePass, this.modalFormLableRePass, this.modalFormButtonGroup
-        )
-        this.modalCard.append(this.modalHeader, this.modalForm)
-        this.wrapper.prepend(this.modalWrapper, this.modalCard)
+        );
+        this.modalCard.append(this.modalHeader, this.modalForm);
+        this.wrapper.prepend(this.modalWrapper, this.modalCard);
+        this.modalFormInputName.focus();
     }
     renderAuthModal() {
         this.modalHeader.innerText = 'Sign In';
@@ -414,9 +415,14 @@ class ViewCreate {
         this.modalFormButtonSubmit.innerText = 'Sign In';
         this.modalFormButtonGroup.append(this.modalFormButtonSubmit, this.modalFormButtonReset);
         this.modalForm.append(this.modalFormLableMail,
-            this.modalFormLablePass, this.modalFormButtonGroup)
-        this.modalCard.append(this.modalHeader, this.modalForm)
-        this.wrapper.prepend(this.modalWrapper, this.modalCard)
+            this.modalFormLablePass, this.modalFormButtonGroup);
+        this.modalForm.setAttribute('autocomplete', 'off');
+        this.modalFormInputMail.setAttribute('autocomplete', 'off');
+        this.modalFormInputPass.setAttribute('autocomplete', 'off');
+
+        this.modalCard.append(this.modalHeader, this.modalForm);
+        this.wrapper.prepend(this.modalWrapper, this.modalCard);
+        this.modalFormInputMail.focus();
     }
 
     renderCreateNewTaskBlock() {
@@ -541,6 +547,14 @@ class ViewCreate {
     get getId() {
         return event.target.parentNode.id;
     }
+    get registrationFormData() {
+        return {
+                userName: this.modalFormInputName.value,
+                email: this.modalFormInputMail.value,
+                password: this.modalFormInputPass.value,
+                rePassword: this.modalFormInputRePass.value,
+        }
+    }
     bindRegestrationButton(method) {
         this.registrButton.addEventListener('click', () => {
             method();
@@ -549,6 +563,12 @@ class ViewCreate {
     bindLoginButton(method) {
         this.loginButton.addEventListener('click', () => {
             method();
+        })
+    }
+    bindRegestrationSubmit(method) {
+        this.modalFormButtonSubmit.addEventListener('click', (evt) => {
+            evt.preventDefault();
+            method(this.registrationFormData);
         })
     }
     bindCreateNewTask() {

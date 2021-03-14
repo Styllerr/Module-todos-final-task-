@@ -68,11 +68,11 @@ router.post(
                 return response.status(400).json({ message: 'Password incorrect. Try again' })
             }
             const token = jwt.sign(
-                { userId: user.id },
+                { userId: user._id },
                 config.get('jwtWord'),
                 { expiresIn: '1h' }
             )
-            response.status(200).json({ token, user: user.userName })
+            response.status(200).json({ token, user: user.userName, id: user._id })
 
         } catch (error) {
             response.status(500).json({ message: 'Try again' })

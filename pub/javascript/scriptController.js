@@ -7,6 +7,7 @@ class Controller {
         this.view.bindCreateNewTask();
         this.view.bindRegestrationButton(this.handlRegistration);
         this.view.bindLoginButton(this.handlAuthorisation);
+        this.view.bindRegestrationSubmit(this.handlRegistrationSubmit);
         this.view.bindAddTask(this.handlAddTask, this.handlPutTask);
         this.view.bindSelectLocation(this.handlSelectLocation);
         this.view.bindAddDescription(this.handlAddDescription);
@@ -20,6 +21,9 @@ class Controller {
     }
     handlRegistration = () => {
         this.view.renderRegModal()
+    }
+    handlRegistrationSubmit = (formData) => {
+        this.model.registrationNewUser(formData);
     }
     handlAuthorisation = () => {
         this.view.renderAuthModal()

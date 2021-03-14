@@ -3,6 +3,26 @@ class ModelAddTask {
         // this.url = 'https://module-todos.herokuapp.com';
         this.url = 'http://localhost:3000';
     }
+    registrationNewUser(formData) {
+        console.log(formData);
+        fetch('/auth/signup',
+            {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then((response) => {
+                if (response.status != 201) {
+
+                }
+                return response.json();
+            })
+            .then((data) => {
+
+                console.log(data);
+            });
+
+    }
     async addTasktoDB(data) {
         data.data = this.taskData;
         try {
