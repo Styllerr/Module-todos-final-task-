@@ -3,24 +3,18 @@ class ModelAddTask {
         // this.url = 'https://module-todos.herokuapp.com';
         this.url = 'http://localhost:3000';
     }
-    registrationNewUser(formData) {
-        console.log(formData);
-        fetch('/auth/signup',
-            {
+    async registrationNewUser(formData) {
+        try {
+            const response = await fetch(this.url + '/auth/signup', {
                 method: 'POST',
                 body: JSON.stringify(formData),
                 headers: { 'Content-Type': 'application/json' }
             })
-            .then((response) => {
-                if (response.status != 201) {
-
-                }
-                return response.json();
-            })
-            .then((data) => {
-
-                console.log(data);
-            });
+            const data = await response.json()
+            return data
+        } catch (err) {
+            console.error('Fetch Error', err);
+        }
 
     }
     async addTasktoDB(data) {

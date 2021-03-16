@@ -23,7 +23,8 @@ class Controller {
         this.view.renderRegModal()
     }
     handlRegistrationSubmit = (formData) => {
-        this.model.registrationNewUser(formData);
+        this.model.registrationNewUser(formData)
+        .then(data => console.log(data))
     }
     handlAuthorisation = () => {
         this.view.renderAuthModal()
