@@ -24,7 +24,28 @@ class Controller {
     }
     handlRegistrationSubmit = (formData) => {
         this.model.registrationNewUser(formData)
-        .then(data => console.log(data))
+            .then(data => {
+                if (data.errors) {
+                    let {errors} = data;
+                    errors.forEach(error => {
+                        switch (error.param) {
+                            case 'email':
+                                this.view.modalFormLableMail.innerText = error.msg;
+                                break;
+                            case 'password':
+                                this.view.modalFormLablePass.innerText = error.msg;
+                                break;
+                        
+                            default:
+                                break;
+                        }
+                        console.log(error.msg + ': in ' + error.param);
+
+                    })
+                } else if (data.message === 'New user created') {
+                    this.view.closeRegModal()
+                }else {this.view.modalFormLableRePass.innerText = data.message;}
+            })
     }
     handlAuthorisation = () => {
         this.view.renderAuthModal()

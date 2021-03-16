@@ -26,12 +26,15 @@ class ViewCreate {
         this.modalFormLableName.className = 'form__lable';
         this.modalFormLableName.innerText = 'User name';
         this.modalFormLableMail = document.createElement('lable');
+        this.modalFormLableMail.htmlFor = 'email';
         this.modalFormLableMail.className = 'form__lable';
         this.modalFormLableMail.innerText = 'E-mail';
         this.modalFormLablePass = document.createElement('lable');
+        this.modalFormLablePass.htmlFor = 'password';
         this.modalFormLablePass.className = 'form__lable';
         this.modalFormLablePass.innerText = 'Enter password';
         this.modalFormLableRePass = document.createElement('lable');
+        this.modalFormLableRePass.id = 'rePassword';
         this.modalFormLableRePass.className = 'form__lable';
         this.modalFormLableRePass.innerText = 'Re-enter password';
 
@@ -39,12 +42,15 @@ class ViewCreate {
         this.modalFormInputName.type = 'text';
         this.modalFormInputName.name = 'userName';
         this.modalFormInputMail = document.createElement('input');
+        this.modalFormInputMail.id = 'email';
         this.modalFormInputMail.type = 'email';
         this.modalFormInputMail.name = 'email';
         this.modalFormInputPass = document.createElement('input');
+        this.modalFormInputPass.id = 'password';
         this.modalFormInputPass.type = 'password';
         this.modalFormInputPass.name = 'password';
         this.modalFormInputRePass = document.createElement('input');
+        this.modalFormInputRePass.id = 'rePassword';
         this.modalFormInputRePass.type = 'password';
         this.modalFormInputRePass.name = 'rePassword';
 
@@ -391,20 +397,26 @@ class ViewCreate {
     }
     renderRegModal() {
         this.modalHeader.innerText = 'Sign Up';
-        // this.modalForm.setAttribute('action', '/auth/signup');
-        // this.modalForm.setAttribute('method', 'POST');
         this.modalFormLableName.append(this.modalFormInputName);
-        this.modalFormLableMail.append(this.modalFormInputMail);
-        this.modalFormLablePass.append(this.modalFormInputPass);
-        this.modalFormLableRePass.append(this.modalFormInputRePass);
+        // this.modalFormLablePass.append(this.modalFormInputPass);
+        // this.modalFormLableRePass.append(this.modalFormInputRePass);
         this.modalFormButtonSubmit.innerText = 'Sign Up';
         this.modalFormButtonGroup.append(this.modalFormButtonSubmit, this.modalFormButtonReset);
-        this.modalForm.append(this.modalFormLableName, this.modalFormLableMail,
-            this.modalFormLablePass, this.modalFormLableRePass, this.modalFormButtonGroup
+        this.modalForm.append(this.modalFormLableName, this.modalFormLableMail, this.modalFormInputMail,
+            this.modalFormLablePass, this.modalFormInputPass, this.modalFormLableRePass, this.modalFormInputRePass,
+            this.modalFormButtonGroup
         );
         this.modalCard.append(this.modalHeader, this.modalForm);
         this.wrapper.prepend(this.modalWrapper, this.modalCard);
         this.modalFormInputName.focus();
+    }
+    closeRegModal() {
+        this.modalFormInputName.value = '';
+        this.modalFormInputMail.value = '';
+        this.modalFormInputPass.value = '';
+        this.modalFormInputRePass.value = '';
+        this.wrapper.removeChild(this.modalWrapper);
+        this.wrapper.removeChild(this.modalCard);
     }
     renderAuthModal() {
         this.modalHeader.innerText = 'Sign In';
@@ -549,10 +561,10 @@ class ViewCreate {
     }
     get registrationFormData() {
         return {
-                userName: this.modalFormInputName.value,
-                email: this.modalFormInputMail.value,
-                password: this.modalFormInputPass.value,
-                rePassword: this.modalFormInputRePass.value,
+            userName: this.modalFormInputName.value,
+            email: this.modalFormInputMail.value,
+            password: this.modalFormInputPass.value,
+            rePassword: this.modalFormInputRePass.value,
         }
     }
     bindRegestrationButton(method) {
